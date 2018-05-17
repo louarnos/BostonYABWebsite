@@ -1,18 +1,21 @@
 
 <template>
   <div>
+    <!-- Nav Bar -->
     <v-toolbar class="nav-bar indigo lighten-3">
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Boston Youth Action Board</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>About</v-btn>
+        <v-btn flat>Who We Are</v-btn>
+        <v-btn flat>Truths and Values</v-btn>
         <v-btn flat>Written Word</v-btn>
-        <v-btn flat>Media</v-btn>
-        <v-btn flat>Press</v-btn>
+        <v-btn flat>Videos</v-btn>
+        <v-btn flat>Contact</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
+    <!-- Landing JumboTron -->
     <v-parallax :src="require('@/assets/downtown.jpg')">
        <v-layout row class="space"/>
        <v-layout fill-height align-start >
@@ -22,11 +25,23 @@
        </v-layout>
      </v-parallax>
 
+    <!-- about -->
+    <div id="who-we-are" class="indigo lighten-2">
+      <div class="circle indigo lighten-2">
+        <icon>
+          <icon name="cicle" scale="10" class="indigo lighten-5"/>
+          <icon name="users" scale="7"/>
+        </icon>
+        <b> Who We Are </b>
+      </div>
+    </div>
+    <div id="truth-and-values">
+    </div>
      <v-footer height="auto">
       <v-card
         flat
         tile
-        class="indigo lighten-1 white--text text-xs-center"
+        class="indigo lighten-2 white--text text-xs-center"
       >
         <v-card-text>
           <v-btn
@@ -50,8 +65,12 @@
   </div>
 </template>
 <script>
+import Icon from 'vue-awesome/components/Icon'
 export default {
   name: 'Base',
+  components: {
+    'icon': Icon
+  },
   data () {
     return {
       msg: 'Hi Lauren'
@@ -64,9 +83,17 @@ export default {
 <style scoped>
 .landing-text {
   font-size: 3em;
-  font-weight: 100;
+  font-weight: 700;
 }
 .space {
   height: 2000px;
+}
+.circle {
+  margin: 0 auto;
+  width: 8%;
+  text-align: center;
+}
+#who-we-are {
+  padding: 5%;
 }
 </style>
