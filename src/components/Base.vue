@@ -28,17 +28,10 @@
     <!-- about -->
     <div id="who-we-are" ref="whoWeAre"  class="indigo lighten-2">
       <div class="circle indigo lighten-2">
-        <icon>
-          <icon name="cicle" scale="10" class="indigo lighten-5"/>
-          <icon name="users" scale="7"/>
-        </icon>
-      </div>
-      <div class="circle indigo lighten-2">
-        <b> Who We Are </b>
+        <h1> Who We Are </h1>
       </div>
       <transition name="fade">
-        <!-- <v-container v-if="whoWeAreInView" fluid grid-list-xl> -->
-        <v-container v-if="true" fluid grid-list-xl>
+        <v-container v-if="whoWeAreInView" fluid grid-list-xl>
           <v-layout row justify-space-around>
             <v-flex xs10>
               <v-card class="indigo lighten-3">
@@ -50,6 +43,8 @@
          </v-layout>
         </v-container>
       </transition>
+      <v-container v-if="!whoWeAreInView" style="min-height: 500px" fluid grid-list-xl>
+      </v-container>
     </div>
     <v-container id="truths-and-values" fluid grid-list-xl class="grey darken-1">
       <v-layout row justify-space-around>
@@ -62,18 +57,7 @@
       <v-card
         flat
         tile
-        class="indigo lighten-2 white--text text-xs-center"
-      >
-        <v-card-text>
-          <v-btn
-            v-for="icon in icons"
-            :key="icon"
-            icon
-            class="mx-3 white--text"
-          >
-            <v-icon size="24px">{{ icon }}</v-icon>
-          </v-btn>
-        </v-card-text>
+        class="indigo lighten-2 white--text text-xs-center" >
         <v-card-text class="white--text pt-0">
           Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
         </v-card-text>
@@ -94,27 +78,30 @@ export default {
   },
   data () {
     return {
-      msg: 'Hi Lauren'
+        whoWeAreRect: {},
     }
   },
- // computed: {
- //     whoWeAreInView() {
- //         let el = this.$refs.whoWeAre;
- //         if (!el) {
- //             return false;
- //         }
- //         console.log('fired');
+  methods: {
+      handleScroll() {
+         this.whoWeAreRect = this.$refs.whoWeAre ? this.$refs.whoWeAre.getBoundingClientRect() : {};
+      },
+  },
+  computed: {
+     whoWeAreInView() {
+         let bounding = this.whoWeAreRect
+         console.log( bounding.top - bounding.height );
+         return (
+             bounding.top - bounding.height <= 0
+         );
+     },
+  },
+  created () {
+     document.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+     document.removeEventListener('scroll', this.handleScroll);
+  }
 
- //   	  let bounding = el.getBoundingClientRect();
-
- //         return (
- //             bounding.top >= 0 &&
- //             bounding.left >= 0 &&
- //             bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
- //             bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
- //         );
- //     }
- // }
 }
 </script>
 
@@ -136,7 +123,7 @@ export default {
   padding: 5%;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
