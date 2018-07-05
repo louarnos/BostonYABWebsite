@@ -13,7 +13,9 @@
   "dependencies": {
     "save-dev": "^2.0.0",
     "vue": "^2.5.2",
+    "vue-awesome": "^3.0.3",
     "vue-router": "^3.0.1",
+    "vue-scrollto": "^2.11.0",
     "vuetify": "^1.0.17"
   },
   "devDependencies": {

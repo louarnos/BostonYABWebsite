@@ -16,7 +16,7 @@
     </v-toolbar>
 
     <!-- Landing JumboTron -->
-    <v-parallax :src="require('@/assets/downtown.jpg')">
+    <v-parallax :src="require('@/assets/overview.jpeg')">
        <v-layout row class="space"/>
        <v-layout fill-height align-start >
          <v-flex xs6>
@@ -26,30 +26,33 @@
      </v-parallax>
 
     <!-- about -->
-    <div id="who-we-are" ref="whoWeAre"  class="indigo lighten-2">
-      <div class="circle indigo lighten-2">
-        <h1> Who We Are </h1>
+      <div id="who-we-are" ref="whoWeAre"  class="indigo lighten-2">
+        <transition name="fade">
+            <div v-if="whoWeAreInView" class="circle indigo lighten-2">
+              <h1> Who We Are </h1>
+            </div>
+        </transition>
+        <transition name="fade">
+          <v-container v-if="whoWeAreInView" fluid grid-list-xl>
+            <v-layout row justify-space-around>
+              <v-flex xs10>
+                <v-card class="indigo lighten-3">
+                  <v-card-text class="content-text">
+                    The Boston Youth Action Board (YAB) is a group of young adults who have experienced or are
+                    currently experiencing homelessness. The project is funded by the City of Boston to engage
+                    young adults (YAs) experiencing homelessness in providing feedback and education to improve
+                    the services and systems designed to support them.
+                    </v-card-text>
+                </v-card>
+              </v-flex>
+           </v-layout>
+          </v-container>
+        </transition>
       </div>
-      <transition name="fade">
-        <v-container v-if="whoWeAreInView" fluid grid-list-xl>
-          <v-layout row justify-space-around>
-            <v-flex xs10>
-              <v-card class="indigo lighten-3">
-                <v-card-text>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                  </v-card-text>
-              </v-card>
-            </v-flex>
-         </v-layout>
-        </v-container>
-      </transition>
-      <v-container v-if="!whoWeAreInView" style="min-height: 500px" fluid grid-list-xl>
-      </v-container>
-    </div>
     <v-container id="truths-and-values" fluid grid-list-xl class="grey darken-1">
       <v-layout row justify-space-around>
         <v-flex xs10>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software ljkike Aldus PageMaker including versions of Lorem Ipsum.
         </v-flex>
      </v-layout>
     </v-container>
@@ -70,6 +73,8 @@
   </div>
 </template>
 <script>
+import "vuetify/dist/vuetify.min.js"
+import "vuetify/dist/vuetify.min.css"
 import Icon from 'vue-awesome/components/Icon'
 export default {
   name: 'Base',
@@ -89,6 +94,8 @@ export default {
   computed: {
      whoWeAreInView() {
          let bounding = this.whoWeAreRect
+         console.log( 'top', bounding.top )
+         console.log( 'height', bounding.height )
          console.log( bounding.top - bounding.height );
          return (
              bounding.top - bounding.height <= 0
@@ -109,6 +116,10 @@ export default {
 .landing-text {
   font-size: 3em;
   font-weight: 700;
+  font-family: Monsterrat, sans-serif;
+}
+.content-text {
+  font-size: 1.5em;
 }
 .space {
   height: 2000px;
@@ -121,9 +132,10 @@ export default {
 }
 #who-we-are {
   padding: 5%;
+  min-height: 420px;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 1s ease-out;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
