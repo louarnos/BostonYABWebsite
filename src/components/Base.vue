@@ -1,8 +1,8 @@
 
 <template>
-  <div>
+  <div style="position:relative">
     <!-- Nav Bar -->
-    <v-toolbar class="nav-bar indigo lighten-3">
+    <v-toolbar class="nav-bar indigo lighten-3" absolute prominent>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Boston Youth Action Board</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -26,36 +26,49 @@
      </v-parallax>
 
     <!-- about -->
-      <div id="who-we-are" ref="whoWeAre"  class="indigo lighten-2">
-        <transition name="fade">
-            <div v-if="whoWeAreInView" class="circle indigo lighten-2">
-              <h1> Who We Are </h1>
-            </div>
-        </transition>
-        <transition name="fade">
-          <v-container v-if="whoWeAreInView" fluid grid-list-xl>
-            <v-layout row justify-space-around>
-              <v-flex xs10>
-                <v-card class="indigo lighten-3">
-                  <v-card-text class="content-text">
-                    The Boston Youth Action Board (YAB) is a group of young adults who have experienced or are
-                    currently experiencing homelessness. The project is funded by the City of Boston to engage
-                    young adults (YAs) experiencing homelessness in providing feedback and education to improve
-                    the services and systems designed to support them.
-                    </v-card-text>
-                </v-card>
-              </v-flex>
-           </v-layout>
-          </v-container>
-        </transition>
+      <div class="section-container indigo lighten-2">
+        <div id="who-we-are" ref="whoWeAre">
+          <transition name="fade">
+            <v-container v-if="whoWeAreInView" fluid grid-list-xl>
+              <v-layout row justify-space-around>
+                <v-flex xs10>
+                  <v-card>
+                    <div class="section-header">
+                      <h1> Who We Are </h1>
+                    </div>
+                    <v-card-text class="content-text">
+                      The Boston Youth Action Board (YAB) is a group of young adults who have experienced or are
+                      currently experiencing homelessness. The project is funded by the City of Boston to engage
+                      young adults (YAs) experiencing homelessness in providing feedback and education to improve
+                      the services and systems designed to support them.
+                      </v-card-text>
+                  </v-card>
+                </v-flex>
+             </v-layout>
+            </v-container>
+          </transition>
+        </div>
       </div>
-    <v-container id="truths-and-values" fluid grid-list-xl class="grey darken-1">
-      <v-layout row justify-space-around>
-        <v-flex xs10>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software ljkike Aldus PageMaker including versions of Lorem Ipsum.
-        </v-flex>
-     </v-layout>
-    </v-container>
+      <div class="section-container grey lighten-2">
+        <div id="truths-and-values" ref="truthsAndValues">
+          <transition name="fade">
+            <v-container v-if="truthsAndValuesInView" fluid grid-list-xl>
+              <v-layout row justify-space-around>
+                <v-flex xs10>
+                  <v-card>
+                    <div class="section-header">
+                      <h1> Truths And Values </h1>
+                    </div>
+                    <v-card-text class="content-text">
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software ljkike Aldus PageMaker including versions of Lorem Ipsum.
+                      </v-card-text>
+                  </v-card>
+                </v-flex>
+             </v-layout>
+            </v-container>
+          </transition>
+        </div>
+      </div>
      <v-footer height="auto">
       <v-card
         flat
@@ -84,19 +97,27 @@ export default {
   data () {
     return {
         whoWeAreRect: {},
+        truthsAndValuesRect: {},
     }
   },
   methods: {
       handleScroll() {
          this.whoWeAreRect = this.$refs.whoWeAre ? this.$refs.whoWeAre.getBoundingClientRect() : {};
+         this.truthsAndValuesRect = this.$refs.truthsAndValues ? this.$refs.truthsAndValues.getBoundingClientRect() : {};
       },
   },
   computed: {
      whoWeAreInView() {
          let bounding = this.whoWeAreRect
-         console.log( 'top', bounding.top )
-         console.log( 'height', bounding.height )
-         console.log( bounding.top - bounding.height );
+         return (
+             bounding.top - bounding.height <= 0
+         );
+     },
+     truthsAndValuesInView() {
+         let bounding = this.truthsAndValuesRect
+         console.log( 'top', bounding.top)
+         console.log( 'height', bounding.height)
+         console.log('res', bounding.top - bounding.height)
          return (
              bounding.top - bounding.height <= 0
          );
@@ -115,11 +136,18 @@ export default {
 <style scoped>
 .landing-text {
   font-size: 3em;
-  font-weight: 700;
+  font-weight: 1∑00;
   font-family: Monsterrat, sans-serif;
 }
 .content-text {
-  font-size: 1.5em;
+  font-size: 3em;
+  font-family: Monsterrat, sans-serif;
+  font-weight: 200;
+}
+.section-header{
+  font-size: 3.5em;
+  font-family: Monsterrat, sans-serif;
+  font-weight: 300;
 }
 .space {
   height: 2000px;
@@ -130,9 +158,15 @@ export default {
   width: 100%;
   text-align: center;
 }
+.section-container {
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
 #who-we-are {
-  padding: 5%;
-  min-height: 420px;
+  min-height: 432px;
+}
+#truths-and-values {
+  min-height: 700px;
 }
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s ease-out;
