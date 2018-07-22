@@ -10,6 +10,6 @@ export default {
 
 <style>
   body {
-   font-family: 'Coustard';
- }
+   font-family: Monsterrat, sans-serif;
+  }
 </style>
