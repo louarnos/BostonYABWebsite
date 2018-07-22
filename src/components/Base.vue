@@ -64,7 +64,7 @@
                         <v-layout row wrap>
 
                           <v-flex xs6>
-                            <v-card class="red lighten-2 list-container">
+                            <v-card class="red lighten-2 list-container" height="100%">
                                 <v-layout>
                                   <v-flex xs2>
                                   </v-flex>
@@ -93,7 +93,7 @@
                           </v-flex>
 
                           <v-flex xs6>
-                            <v-card class="red lighten-2 list-container">
+                            <v-card class="red lighten-2 list-container" height="100%">
                                 <v-layout>
                                   <v-flex xs2>
                                   </v-flex>
@@ -306,9 +306,11 @@ h2.list-title {
   padding-bottom: 15%;
 }
 #who-we-are {
+  padding-top: 5%;
   min-height: 432px;
 }
 #truths-and-values {
+  padding-top: 5%;
   min-height: 700px;
 }
 .fade-enter-active, .fade-leave-active {
