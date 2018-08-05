@@ -1,4 +1,3 @@
-
 <template>
   <div class="hide-overflow" style="position:relative">
     <!-- Nav Bar -->
@@ -16,7 +15,7 @@
     </v-toolbar>
 
     <!-- Landing JumboTron -->
-    <v-parallax :src="require('@/assets/overview.jpeg')">
+    <v-parallax :src="require('@/assets/downtown.jpg')">
        <v-layout row class="space"/>
        <v-layout fill-height align-start >
          <v-flex xs6>
@@ -48,6 +47,10 @@
             </v-container>
           </transition>
         </div>
+      </div>
+      <div>
+       <v-parallax :src="require('@/assets/long_table.jpg')">
+       </v-parallax>
       </div>
       <div class="section-container grey lighten-2">
         <div id="truths-and-values" ref="truthsAndValues">
@@ -133,16 +136,36 @@
           </transition>
         </div>
       </div>
-     <v-footer height="auto">
+      <v-parallax :src="require('@/assets/what_was_interesting.png')" :height="'400'">
+      </v-parallax>
+     <v-footer height="auto" width="100%">
       <v-card
         flat
         tile
-        class="indigo lighten-2 white--text text-xs-center" >
-        <v-card-text class="white--text pt-0">
-          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-        </v-card-text>
+        class="indigo lighten-2 white--text text-xs-center"
+        width="100%">
+          <!--
+-->
         <v-card-text class="white--text">
-          &copy;2018 — <strong>Vuetify</strong>
+          <span class="icon-container">
+            <v-icon
+              @click="openLink('https://www.facebook.com/BostonYAB/')"
+              :size="150">
+                fa fa-facebook-square
+            </v-icon>
+            <v-icon
+              @click="openLink('https://www.youtube.com/channel/UCMVlYzUB4RP9j_75f2fyW0Q')"
+              
+              :size="150">
+                fa fa-youtube-square
+            </v-icon>
+            <v-icon
+              @click="openLink('mailto:bostonyab@gmail.com')"
+              
+              :size="150">
+                fa fa-envelope-o
+            </v-icon>
+          </span>
         </v-card-text>
       </v-card>
     </v-footer>
@@ -222,6 +245,10 @@ export default {
          this.whoWeAreRect = this.$refs.whoWeAre ? this.$refs.whoWeAre.getBoundingClientRect() : {};
          this.truthsAndValuesRect = this.$refs.truthsAndValues ? this.$refs.truthsAndValues.getBoundingClientRect() : {};
       },
+      openLink(url) {
+        let win = window.open(url, '_blank');
+        win.focus();
+      }
   },
   computed: {
      whoWeAreInView() {
@@ -253,7 +280,7 @@ export default {
 <style scoped>
 .landing-text {
   font-size: 3em;
-  font-weight: 1∑00;
+  font-weight: 100;
   font-family: Monsterrat, sans-serif;
 }
 .main-content {
@@ -318,5 +345,14 @@ h2.list-title {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.fa:hover {
+  color: black;
+  cursor: pointer;
+}
+.icon-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
 }
 </style>
