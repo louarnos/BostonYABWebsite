@@ -1,19 +1,7 @@
 <template>
   <div class="hide-overflow" style="position:relative">
-    <!-- Nav Bar -->
-    <v-toolbar class="nav-bar indigo lighten-2" fixed prominent>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Boston Youth Action Board</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-scroll-to="'#who-we-are'" flat>Who We Are</v-btn>
-        <v-btn v-scroll-to="'#truths-and-values'" flat>Truths and Values</v-btn>
-        <v-btn flat>Written Word</v-btn>
-        <v-btn flat>Videos</v-btn>
-        <v-btn flat>Contact</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
 
+    <navBar/>
     <!-- Landing JumboTron -->
     <v-parallax :src="require('@/assets/downtown.jpg')">
        <v-layout row class="space"/>
@@ -175,11 +163,11 @@
 <script>
 import "vuetify/dist/vuetify.min.js"
 import "vuetify/dist/vuetify.min.css"
-import Icon from 'vue-awesome/components/Icon'
+import NavBar from "./mainPage/Navbar.vue"
 export default {
   name: 'Base',
   components: {
-    'icon': Icon
+    'navBar': NavBar
   },
   data () {
     return {
