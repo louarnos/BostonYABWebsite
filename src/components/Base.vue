@@ -1,17 +1,7 @@
 <template>
   <div class="hide-overflow" style="position:relative">
-
     <navBar/>
-    <!-- Landing JumboTron -->
-    <v-parallax :src="require('@/assets/downtown.jpg')">
-       <v-layout row class="space"/>
-       <v-layout fill-height align-start >
-         <v-flex xs6>
-          <span class="white--text landing-text landing-text">Nothing About Us, Without Us.</span>
-         </v-flex>
-       </v-layout>
-     </v-parallax>
-
+    <landingEl/>
     <!-- about -->
       <div class="section-container indigo lighten-2">
         <div id="who-we-are" ref="whoWeAre">
@@ -132,8 +122,6 @@
         tile
         class="indigo lighten-2 white--text text-xs-center"
         width="100%">
-          <!--
--->
         <v-card-text class="white--text">
           <span class="icon-container">
             <v-icon
@@ -164,10 +152,12 @@
 import "vuetify/dist/vuetify.min.js"
 import "vuetify/dist/vuetify.min.css"
 import NavBar from "./mainPage/Navbar.vue"
+import LandingJumbo from "./mainPage/landingJumbotron.vue"
 export default {
   name: 'Base',
   components: {
-    'navBar': NavBar
+    'navBar': NavBar,
+    'landingEl': LandingJumbo,
   },
   data () {
     return {
