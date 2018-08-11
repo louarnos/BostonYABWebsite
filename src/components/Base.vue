@@ -2,30 +2,7 @@
   <div class="hide-overflow" style="position:relative">
     <navBar/>
     <landingEl/>
-    <!-- about -->
-      <div class="section-container indigo lighten-2">
-        <div id="who-we-are" ref="whoWeAre">
-          <transition name="fade">
-            <v-container v-if="whoWeAreInView" fluid grid-list-xl>
-              <v-layout row justify-space-around>
-                <v-flex xs10>
-                  <v-card>
-                    <div class="section-header">
-                      <h1> Who We Are </h1>
-                    </div>
-                    <v-card-text class="main-content">
-                      The Boston Youth Action Board (YAB) is a group of young adults who have experienced or are
-                      currently experiencing homelessness. The project is funded by the City of Boston to engage
-                      young adults (YAs) experiencing homelessness in providing feedback and education to improve
-                      the services and systems designed to support them.
-                      </v-card-text>
-                  </v-card>
-                </v-flex>
-             </v-layout>
-            </v-container>
-          </transition>
-        </div>
-      </div>
+    <whoWeAreEl ref='whoWeAre'/>
       <div>
        <v-parallax :src="require('@/assets/long_table.jpg')">
        </v-parallax>
@@ -153,15 +130,16 @@ import "vuetify/dist/vuetify.min.js"
 import "vuetify/dist/vuetify.min.css"
 import NavBar from "./mainPage/Navbar.vue"
 import LandingJumbo from "./mainPage/landingJumbotron.vue"
+import WhoWeAre from "./mainPage/whoWeAre.vue"
 export default {
   name: 'Base',
   components: {
     'navBar': NavBar,
     'landingEl': LandingJumbo,
+    'whoWeAreEl': WhoWeAre,
   },
   data () {
     return {
-        whoWeAreRect: {},
         truthsAndValuesRect: {},
         valuesContent: [
           {
@@ -220,7 +198,9 @@ export default {
   },
   methods: {
       handleScroll() {
-         this.whoWeAreRect = this.$refs.whoWeAre ? this.$refs.whoWeAre.getBoundingClientRect() : {};
+          if ( this.$refs.whoWeAre ) {
+              this.$refs.whoWeAre.getRect();
+          }
          this.truthsAndValuesRect = this.$refs.truthsAndValues ? this.$refs.truthsAndValues.getBoundingClientRect() : {};
       },
       openLink(url) {
@@ -229,17 +209,8 @@ export default {
       }
   },
   computed: {
-     whoWeAreInView() {
-         let bounding = this.whoWeAreRect
-         return (
-             bounding.top - bounding.height <= 0
-         );
-     },
      truthsAndValuesInView() {
          let bounding = this.truthsAndValuesRect
-         console.log( 'top', bounding.top)
-         console.log( 'height', bounding.height)
-         console.log('res', bounding.top - bounding.height)
          return (
              bounding.top - bounding.height <= 0
          );
@@ -254,17 +225,31 @@ export default {
 
 }
 </script>
-
+<style>
+.main-content {
+  font-size: 3em;
+  font-weight: 100;
+}
+.section-header{
+  font-size: 3.5em;
+  font-weight: 300;
+}
+.section-container {
+  padding-top: 15%;
+  padding-bottom: 15%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 3s ease-out;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
 <style scoped>
 .landing-text {
   font-size: 3em;
   font-weight: 100;
   font-family: Monsterrat, sans-serif;
-}
-.main-content {
-  font-size: 3em;
-  font-family: Monsterrat, sans-serif;
-  font-weight: 100;
 }
 .content-text {
   font-size: 1.5em;
@@ -292,11 +277,6 @@ h2.list-title {
   font-weight: 200;
   //font-style: italic;
 }
-.section-header{
-  font-size: 3.5em;
-  font-family: Monsterrat, sans-serif;
-  font-weight: 300;
-}
 .space {
   height: 2000px;
 }
@@ -306,23 +286,9 @@ h2.list-title {
   width: 100%;
   text-align: center;
 }
-.section-container {
-  padding-top: 15%;
-  padding-bottom: 15%;
-}
-#who-we-are {
-  padding-top: 5%;
-  min-height: 432px;
-}
 #truths-and-values {
   padding-top: 5%;
   min-height: 700px;
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 3s ease-out;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
 }
 .fa:hover {
   color: black;
