@@ -24,32 +24,10 @@
   </div>
 </template>
 <script>
+import LocationTracker from '../common/hasTracking.vue'
 export default {
-  name: 'Test',
-  props: ['text'],
-  data() {
-      return {
-          rect: {}
-      }
-  },
-  methods: {
-      getRect() {
-          console.log('getRect');
-          this.rect = this.$refs.positionTracker ? this.$refs.positionTracker.getBoundingClientRect() : {};
-      },
-  },
-  computed: {
-      inView() {
-         let bounding = this.rect
-         console.log( ( bounding.top - bounding.height <= 0 ));
-         return (
-             bounding.top - bounding.height <= 0
-         );
-      }
-  },
-  created() {
-      console.log('created');
-  },
+  name: 'WhoWeAre',
+  mixins: [LocationTracker],
 }
 </script>
 <style>
