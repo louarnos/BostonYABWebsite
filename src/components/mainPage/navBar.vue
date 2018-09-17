@@ -6,7 +6,7 @@
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn v-scroll-to="'#who-we-are'" flat>Who We Are</v-btn>
         <v-btn v-scroll-to="'#truths-and-values'" flat>Truths and Values</v-btn>
-        <v-btn flat>Written Word</v-btn>
+        <v-btn v-scroll-to="'#written-word'" flat>Written Word</v-btn>
         <v-btn flat>Videos</v-btn>
         <v-btn flat>Contact</v-btn>
       </v-toolbar-items>

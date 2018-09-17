@@ -8,6 +8,7 @@
         <truthsAndValuesEl ref='truthsAndValues'/>
         <v-parallax :src="require('@/assets/useful.png')" :height="'510'" >
         </v-parallax>
+        <writtenWordEl ref='writtenWord'/>
 
      <v-footer height="auto" width="100%">
       <v-card
@@ -48,6 +49,7 @@ import NavBar from "./mainPage/Navbar.vue"
 import LandingJumbo from "./mainPage/landingJumbotron.vue"
 import WhoWeAre from "./mainPage/whoWeAre.vue"
 import TruthsAndValues from "./mainPage/truthsAndValues.vue"
+import WrittenWord from "./mainPage/writtenWord.vue"
 export default {
   name: 'Base',
   components: {
@@ -55,6 +57,7 @@ export default {
     'landingEl': LandingJumbo,
     'whoWeAreEl': WhoWeAre,
     'truthsAndValuesEl': TruthsAndValues,
+    'writtenWordEl': WrittenWord
   },
   methods: {
       handleScroll() {
