@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Base from '@/components/Base'
+import Login from '@/components/Login'
+
 import Vuetify from 'vuetify'
 import VueScrollTo from 'vue-scrollto'
 
@@ -17,9 +20,12 @@ Vue.use(VueScrollTo)
 export default new Router({
   routes: [
     {
+      path: '/login',
+      component: Login,
+    },
+    {
       path: '/',
-      name: 'Base',
-      component: Base
-    }
+      component: Base,
+    },
   ]
 })
