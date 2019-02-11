@@ -8,11 +8,27 @@
 		lazy-validation>
 			<v-container>
 				<v-layout row wrap>
-					<v-flex xs6 offset-sm3>
+					<v-flex v-if="register" xs6 offset-sm3>
+						<v-text-field
+						  v-model="name"
+                          class="form-field-container"
+						  label="Name"
+                          solo>
+						</v-text-field>
+					</v-flex>
+					<v-flex v-if="register" xs6 offset-sm3>
 						<v-text-field
 						  v-model="email"
                           class="form-field-container"
-						  label="E-mail"
+						  label="Email"
+                          solo>
+						</v-text-field>
+					</v-flex>
+					<v-flex xs6 offset-sm3>
+						<v-text-field
+						  v-model="username"
+                          class="form-field-container"
+						  label="Username"
                           solo>
 						</v-text-field>
 					</v-flex>
@@ -27,7 +43,7 @@
 					</v-flex>
 					<v-flex v-if="register" xs6 offset-sm3>
 						<v-text-field
-						  v-model="passwordConfirm"
+						  v-model="passwordConfirmation"
                           class="form-field-container"
 						  label="Password Confirmation"
 						  :type="'password'"
@@ -36,7 +52,7 @@
 					</v-flex>
 					<v-flex v-if="register" xs6 offset-sm3>
 						<v-text-field
-						  v-model="secretKey"
+						  v-model="authToken"
                           class="form-field-container"
 						  label="Registration Key"
 						  :type="'password'"
@@ -79,28 +95,49 @@ export default {
       submit() {
           this.register ? this.signUp() : this.signIn();
       },
+      resetForm() {
+          this.registerFields.forEach( field => this[field] = "" );
+          console.log('reset');
+      },
       signUp() {
-          axios.post('/users/register', {username: 'test', password: 'wtf'} )
+          let data = {};
+          this.registerFields.forEach( field => data[field] = this[field] );
+          axios.post('/users/register', data )
               .then( res => {
                   // TODO Notification
-                  console.log('we made it');
+                  this.resetForm();
+                  this.register = false;
               }).catch( ( err ) => {
-                  console.log( err )
-                  console.log( err.message )
-                  console.log( err.error );
-                  console.log( err.responseText );
+                  // TODO Notification
+                   console.log( err.response.data.error )
               })
       },
       signIn() {
           console.log('sign in');
+          let data = {};
+          this.registerFields.forEach( field => data[field] = this[field] );
+          axios.post('/login', data )
+              .then( res => {
+                  // TODO Ssave TOken
+                  // TODO Notification
+                  this.$router.push('/moderator');
+                  console.log('COOOL');
+              }).catch( ( err ) => {
+                  // TODO Notification
+                   console.log( err.response )
+                   console.log( err )
+              })
       },
-      },
+  },
   data: () => ({
+      name: "",
       email: "",
+      username: "",
       password: "",
+      passwordConfirmation: "",
+      authToken: "",
       register: false,
-      secretKey: "",
-      passwordConfirm: "",
+      registerFields:  ['name', 'email', 'username', 'password', 'passwordConfirmation', 'authToken'],
   })
 }
 </script>
