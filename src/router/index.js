@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Base from '@/components/Base'
 import Login from '@/components/Login'
+import Moderator from '@/components/Moderator'
 
 import Vuetify from 'vuetify'
 import VueScrollTo from 'vue-scrollto'
@@ -19,6 +20,10 @@ Vue.use(VueScrollTo)
 
 export default new Router({
   routes: [
+    {
+      path: '/moderator',
+      component: Moderator,
+    },
     {
       path: '/login',
       component: Login,
