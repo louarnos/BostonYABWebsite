@@ -35,4 +35,12 @@ export default {
   padding-top: 5%;
   min-height: 432px;
 }
+@media screen and (max-width: 480px) {
+  .section-header {
+      font-size: 1.8em;
+  }
+  .main-content {
+    font-size: 1.2em;
+  }
+}
 </style>
