@@ -103,21 +103,20 @@ export default {
           .then( res => {
               this.resetForm();
               this.register = false;
-              debugger;
               this.$refs.notification.showSuccess({ title: 'Success', message: 'You have successfully registered' });
           }).catch( ( err ) => {
-              debugger;
               this.$refs.notification.showFailure({ title: 'Failure', message: err.response.data.error });
           })
     },
     signIn() {
       let data = {};
       this.registerFields.forEach( field => data[field] = this[field] );
-      console.log( data );
       axios.post('/login', data )
           .then( res => {
-              // TODO Save Token
-              console.log('here');
+              localStorage.setItem( 'yabUsersName', res.data.user.name );
+              localStorage.setItem( 'yabUsername', res.data.user.username );
+              localStorage.setItem( 'yabUserEmail', res.data.user.email );
+              localStorage.setItem( 'yabToken', res.data.token );
               this.$refs.notification.showSuccess({ title: 'Login Success', message: 'Logged In' });
               this.$router.push('/moderator');
           }).catch( ( err ) => {
