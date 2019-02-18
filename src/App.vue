@@ -3,6 +3,10 @@
 </template>
 
 <script>
+
+import "vuetify/dist/vuetify.min.js"
+import "vuetify/dist/vuetify.min.css"
+
 export default {
   name: 'App'
 }
