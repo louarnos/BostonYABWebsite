@@ -51,8 +51,8 @@
               :type="'password'">
             </v-text-field>
             <v-btn
-                :color="'info'"
                 :small="true"
+                outline
                 @click="register=!register" > 
                     <span v-if="register">
                         Back to Sign In
@@ -62,7 +62,7 @@
                     </span>
             </v-btn>
             <v-btn
-                :color="'info'"
+                outline
                 @click="submit" > 
                     Submit
             </v-btn>
@@ -174,8 +174,8 @@ export default {
       background-color: #DDD;
       padding-top: 85px;
   }
-  .section-header{
-      font-size: 1.5em;
+  .section-header > h1{
+      font-size: 3em;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }
