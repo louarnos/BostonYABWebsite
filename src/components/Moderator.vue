@@ -34,7 +34,7 @@
        </v-list-tile>
      </v-list>
    </v-navigation-drawer>
-   <v-content>
+   <v-content fill-height>
 	 <router-view></router-view>
    </v-content>
 </div>
@@ -68,5 +68,24 @@ export default {
   }),
 }
 </script>
+<style>
+ .v-input {
+	 margin-bottom: 2%;
+ }
+</style>
 <style scoped>
+  .navigation-drawer.navigation-drawer--fixed {
+  	height: auto !important;
+  }
+  .login-container {
+	  height: 100%;
+      border: 3px solid #971111;
+      background-color: #DDD;
+      padding-top: 85px;
+  }
+  .section-header > h1{
+      font-size: 3em;
+      font-weight: 300;
+      font-family: Monsterrat, sans-serif;
+  }
 </style>
