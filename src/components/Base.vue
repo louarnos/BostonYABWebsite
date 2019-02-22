@@ -43,8 +43,6 @@
   </div>
 </template>
 <script>
-import "vuetify/dist/vuetify.min.js"
-import "vuetify/dist/vuetify.min.css"
 import NavBar from "./mainPage/Navbar.vue"
 import LandingJumbo from "./mainPage/landingJumbotron.vue"
 import WhoWeAre from "./mainPage/whoWeAre.vue"
