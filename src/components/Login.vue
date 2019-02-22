@@ -166,15 +166,11 @@ export default {
 <style scoped>
   .login-container {
       border: 3px solid #971111;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
       background-color: #DDD;
       padding-top: 85px;
+      height: 100%;
   }
-  .section-header > h1{
+  .section-header > h1 {
       font-size: 3em;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
