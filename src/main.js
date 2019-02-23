@@ -6,12 +6,15 @@ import router from './router'
 import Icon from 'vue-awesome/icons'
 import axios from 'axios'
 import Vuetify from 'vuetify'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
-Vue.use( Vuetify, {
-    theme: {
-        primary: '#1976D2'
-    }
-})
+Vue.use( CKEditor );
+
+//Vue.use( Vuetify, {
+//    theme: {
+//        primary: '#1976D2'
+//    }
+//})
 
 Vue.config.productionTip = false
 Vue.component('icon', Icon)
