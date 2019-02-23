@@ -35,7 +35,7 @@
      </v-list>
    </v-navigation-drawer>
    <v-content fill-height>
-	 <router-view></router-view>
+	 <router-view v-bind="routerProps"></router-view>
    </v-content>
 </div>
 </template>
@@ -43,6 +43,7 @@
 
 import Multiselect from 'vue-multiselect'
 import User from './common/hasUser.vue'
+import axios from 'axios'
 
 export default {
   name: 'Moderator',
@@ -50,9 +51,33 @@ export default {
       'multi-select': Multiselect,
   },
   mixins: [User],
+  created() {
+	  this.loadData();
+  },
+  computed: {
+	  routerProps() {
+		  if ( this.$route.name === "add_author" ) { return { pronouns: this.pronouns } }
+		  if ( this.$route.name === "create_post" ) { return { authors: this.authors } }
+	  },
+	  pronouns() {
+		  let allPronouns = {};
+		  this.authors.forEach( ( author ) => {
+			  author.pronouns.forEach( pronoun => allPronouns[pronoun] = 1 );
+		  });
+		  return Object.keys( allPronouns );
+	  }
+  },
   methods: {
 	  updateRoute(path) {
 		  this.$router.push(path);
+	  },
+	  loadData(){
+          axios.get( '/authors')
+            .then( res => {
+				this.authors = res.data.authors;
+            }).catch( err => {
+                console.log( 'failure' );
+            });
 	  },
   },
   data: () => ({
@@ -62,6 +87,7 @@ export default {
       { title: 'Create Post', icon: 'create' , path: '/moderator/create_post' },
 	  { title: 'Posts', icon: 'list', path: '/moderator/posts'  },
     ],
+	authors: [],
 	drawer: true,
 	right: null,
 	view: 'createPost',
@@ -71,6 +97,18 @@ export default {
 <style>
  .v-input {
 	 margin-bottom: 2%;
+ }
+ .multiselect-container {
+	 margin-bottom: 6%;
+ }
+ .v-content {
+     min-height: 100%;
+ }
+ #app {
+     min-height: 100%;
+ }
+ .layout.column {
+     min-height: 100%;
  }
 </style>
 <style scoped>
@@ -84,7 +122,7 @@ export default {
       padding-top: 85px;
   }
   .section-header > h1{
-      font-size: 3em;
+      font-size: 1em;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }
