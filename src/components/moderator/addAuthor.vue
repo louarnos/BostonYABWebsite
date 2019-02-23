@@ -13,15 +13,17 @@
               :rules="nameRules"
               label="Name">
             </v-text-field>
-            <multi-select
-                id="pronouns"
-                v-model="pronouns"
-                :taggable="true"
-                multiple="multiple"
-                @tag="addTag"
-                :options="pronounOptions"
-                placeholder="Pronouns">
-            </multi-select>
+            <div class="multiselect-container">
+                <multi-select
+                    id="pronouns"
+                    v-model="pronounsSelected"
+                    :taggable="true"
+                    multiple="multiple"
+                    @tag="addTag"
+                    :options="pronounsCopy"
+                    placeholder="Pronouns">
+                </multi-select>
+            </div>
             <input type="file" @change="inputFilter">
             <v-card class="teal lighten-3" v-if="file">
               <v-list two-line dense>
@@ -36,7 +38,7 @@
                 </v-list-tile>
               </v-list>
             </v-card>
-            <v-btn class="teal lighten-3 white--text" @click="createAuthor" outline >Create Author</v-btn>
+            <v-btn @click="createAuthor" outline >Create Author</v-btn>
           </v-form>
         </v-flex>
     </v-layout>
@@ -48,11 +50,16 @@
 
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
+import notification from '../common/hasNotifications.vue'
 
 export default {
   name: 'AddAuthor',
+  props: ['pronouns'],
   components: {
       'multi-select': Multiselect,
+      'notification': notification,
+  },
+  created() {
   },
   methods: {
       createAuthor() {
@@ -62,19 +69,19 @@ export default {
             formData.append('file', this.file , this.file.name)
           }
 
-          formData.append('pronouns', this.pronouns)
+          formData.append('pronouns', this.pronounsSelected)
           formData.append('name', this.name)
 
           axios.post( '/authors/add', formData )
             .then( res => {
-
+                this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new author.' });
             }).catch( err => {
                 console.log( 'failure' );
             });
       },
       addTag( newTag, field ) {
-          this[field] = newTag
-          //this[`${field}Options`].push( newTag )
+          this[`${field}Copy`].push(newTag);
+          this[`${field}Selected`].push(newTag);
       },
       inputFilter( event ) {
         let file = event.target.files[0]
@@ -90,6 +97,11 @@ export default {
         }
       },
   },
+  watch: {
+      pronouns() {
+          this.pronounsCopy = this.pronouns;
+      },
+  },
   computed: {
       pronounOptions() {
           return [];
@@ -100,9 +112,9 @@ export default {
         v => !!v || 'Name is required',
         v => /^[a-zA-Z\s]+$/.test(v) || 'Name can only have letters'
       ],
+      pronounsSelected: [],
+      pronounsCopy: [],
       name: "",
-      pronouns: [],
-      prevPronouns: [],
 	  file: null,
       image: "",
   }),
