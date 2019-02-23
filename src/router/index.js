@@ -28,10 +28,24 @@ export default new Router({
       path: '/moderator',
       component: Moderator,
       children: [
-        { path: 'create_post', component: createPost },
-        { path: 'posts', component: AllPosts },
-        { path: 'authors', component: AllAuthors },
-        { path: 'add_author', component: AddAuthor },
+        {
+            name: 'create_post',
+            path: 'create_post',
+            component: createPost
+        },
+        {
+            path: 'posts',
+            component: AllPosts
+        },
+        {
+            path: 'authors',
+            component: AllAuthors
+        },
+        {
+            name: 'add_author',
+            path: 'add_author',
+            component: AddAuthor
+        },
       ],
     },
     {
