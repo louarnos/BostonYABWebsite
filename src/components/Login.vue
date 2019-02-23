@@ -164,10 +164,23 @@ export default {
 }
 </script>
 <style scoped>
+  #app {
+      height: 100%;
+      margin: 0;
+  }
+  .v-content {
+      min-height: 100%;
+  }
+  .layout.column {
+      min-height: 100%;
+  }
+  .v-input {
+      margin-bottom: 2%;
+  }
   .login-container {
       border: 3px solid #971111;
       background-color: #DDD;
-      padding-top: 85px;
+      padding-top: 2%;
       height: 100%;
   }
   .section-header > h1 {
