@@ -55,6 +55,9 @@ export default {
       padding: 4px;
       padding-left: 2px;
   }
+  .v-chip.v-chip.v-chip--outline {
+      color: #FFA000;
+  }
   .multiselect__placeholder {
       color: #FFA000;
       font-size: 16px;
