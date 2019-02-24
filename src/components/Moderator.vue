@@ -99,13 +99,19 @@ export default {
 	 margin-bottom: 2%;
  }
  .multiselect-container {
-	 margin-bottom: 6%;
+	 margin-bottom: 4%;
+ }
+ .attachment-container {
+	 margin-bottom: 2%;
  }
  .v-content {
      min-height: 100%;
  }
  #app {
-     min-height: 100%;
+	 position: absolute;
+	 width: 100%;
+	 top: 0;
+	 bottom: 0;
  }
  .layout.column {
      min-height: 100%;
