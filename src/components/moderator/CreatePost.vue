@@ -1,97 +1,160 @@
 <template>
     <div class="indigo lighten-2 white--text text-xs-center login-container" >
+        <notification ref="notification"/>
         <div class="section-header">
           <h1> Create New Post </h1>
         </div>
-		<v-form
-		ref="form"
-		lazy-validation>
-			<v-container>
-				<v-layout row wrap>
-					<v-flex xs6 offset-sm3>
-						<v-text-field
-						  v-model="title"
-                          class="form-field-container"
-						  label="Title"
-                          solo>
-						</v-text-field>
-					</v-flex>
-					<v-flex xs6 offset-sm3>
-                        <div class="form-field-container">
-                            <multi-select
-                                id="author"
-                                v-model="author"
-                                :taggable="true"
-                                @tag="addTag"
-                                :options="authorOptions"
-                                placeholder="Author">
-                            </multi-select>
-                        </div>
-					</v-flex>
-					<v-flex xs6 offset-sm3>
-                        <div class="form-field-container">
-                            <multi-select
-                                id="tags"
-                                v-model="tags"
-                                :taggable="true"
-                                @tag="addTag"
-                                multiple="multiple"
-                                :options="tagsOptions"
-                                placeholder="Tags">
-                            </multi-select>
-                        </div>
-					</v-flex>
-					<v-flex xs6 offset-sm3>
-						<v-text-field
-							textarea
-							rows="15"
-							auto-grow
-							counter=4000
-							v-model="body"
-							class="form-field-container"
-							label="Body"
-							solo
-							auto-grow>
-						</v-text-field>
-					</v-flex>
-					<v-flex xs6 offset-sm3>
-                        <v-btn
-                            :color="'info'"
-                            @click="createPost" >
-                            Create
-                        </v-btn>
-					</v-flex>
-				</v-layout>
-			</v-container>
-        </v-form>
+        <v-container>
+            <v-layout v-if="preview" row wrap>
+                <blog-post :author="author" :title="title" :body="body" :tags="tags" :files="files"/>
+            </v-layout>
+            <v-layout v-else row wrap>
+                <v-flex xs6 offset-sm3>
+                    <v-text-field
+                        v-model="title"
+                        label="Title">
+                    </v-text-field>
+                    <div class="multiselect-container">
+                        <multi-select
+                            id="author"
+                            v-model="author"
+                            :options="authors"
+                            label="name"
+                            placeholder="Author">
+                        </multi-select>
+                    </div>
+                    <div class="multiselect-container">
+                        <multi-select
+                            id="tags"
+                            v-model="tags"
+                            :taggable="true"
+                            @tag="addTag"
+                            multiple="multiple"
+                            :options="tagsOptions"
+                            placeholder="Tags">
+                        </multi-select>
+                    </div>
+                    <div class="multiselect-container">
+                        <input type="file" @change="inputFilter" multiple="multiple"/>
+                    </div>
+                    <div class="attachment-container"  v-for="( file, i ) in files" :key="i">
+                      <v-card class="teal lighten-3">
+                        <v-list two-line dense>
+                          <v-list-tile>
+                            <v-list-tile-action class="icon">
+                              <v-icon color="indigo lighten-2">attachment</v-icon>
+                            </v-list-tile-action>
+                            <v-list-tile-action>
+                              <v-img :src="file.src"/>
+                            </v-list-tile-action>
+                            <v-list-tile-content class="text-center" >
+                              <v-list-tile-title class="indigo-text lighten-2">Name: {{ file.name }}</v-list-tile-title>
+                              <v-list-tile-title class="indigo-text lighten-2">Size: {{ file.size }}kB</v-list-tile-title>
+                            </v-list-tile-content>
+                            <div class="full-width">
+                              <v-btn icon ripple right @click="deleteImage(i)">
+                                <v-icon color="red lighten-2">delete</v-icon>
+                              </v-btn>
+                          </div>
+                          </v-list-tile>
+                        </v-list>
+                      </v-card>
+                    </div>
+               </v-flex>
+               <v-flex xs12>
+                    <ckeditor :editor="editor" v-model="body" :config="editorConfig"></ckeditor>
+               </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+               <v-flex xs12>
+                   <v-btn
+                       outline
+                       class="elevation-5"
+                       @click="createPost" >
+                       Create
+                   </v-btn>
+                   <v-btn
+                       v-if="preview"
+                       class="elevation-5"
+                       outline
+                       @click="preview=false">
+                       Back to Edit
+                   </v-btn>
+                   <v-btn
+                       v-else
+                       class="elevation-5"
+                       outline
+                       @click="preview=true">
+                       Preview
+                   </v-btn>
+               </v-flex>
+        </v-layout>
+    </v-container>
    </div>
 </template>
+
 <script>
 
 import axios from 'axios';
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import BlogPost from '../common/blogPost.vue';
+import notification from '../common/hasNotifications.vue'
 
 export default {
   name: 'Moderator',
+  props: ['authors'],
   components: {
       'multi-select': Multiselect,
+      'blog-post': BlogPost,
+      'notification': notification,
   },
   methods: {
+      deleteImage(index) {
+          this.files.splice( index, 1 );
+      },
       addTag(newTag, field) {
           this[`${field}Options`].push(newTag);
           this[field].push(newTag);
       },
       createPost() {
           console.log('create post');
-      }
+          console.log( this.authors )
+      },
+      inputFilter( event ) {
+        let files = event.target.files;
+        let validFiles = [];
+        let invalidFiles = [];
+        if (files) {
+          Array.from(files).forEach( ( file ) => {
+              if( /(\/|^)(Thumbs\.db|desktop\.ini|\..+)$/.test(file.name) || /\.(php5?|html?|jsx?)$/i.test(file.name) ) {
+                  invalidFiles.push( file );
+              } else {
+                  let src = URL.createObjectURL(file);
+                  file.src = src;
+                  validFiles.push( file );
+              }
+          });
+
+          this.files = validFiles;
+
+          if ( invalidFiles.length ) {
+
+          }
+        }
+      },
   },
   data: () => ({
+      editor: ClassicEditor,
       author: [],
       title: "",
       body: "",
       tags: [],
       tagsOptions: [],
       authorOptions: [],
+      editorConfig: {},
+      preview: false,
+	  files: [],
   }),
 }
 </script>
@@ -107,9 +170,16 @@ export default {
       margin-bottom: 1%;
       background-color: white;
   }
-  .section-header{
-      font-size: 1.5em;
+  .section-header > h1 {
+      font-size: 3em;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
+  }
+  .v-list__tile__action.icon {
+      min-width: none;
+      width: auto;
+  }
+  .text-center > .v-list__tile__title {
+      text-align: center;
   }
 </style>
