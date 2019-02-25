@@ -112,17 +112,40 @@ export default {
   methods: {
       deleteImage(index) {
           this.files.splice( index, 1 );
+          this.deletedFiles[index] = 1;
       },
       addTag(newTag, field) {
           this[`${field}Options`].push(newTag);
           this[field].push(newTag);
       },
       createPost() {
-          console.log('create post');
-          console.log( this.authors )
+          // TODO VALIDATION/WARNING HERE?
+
+          let formData = new FormData()
+          if ( this.fileList ) {
+             for( var i = 0; i < this.fileList.length; i++ ){
+                   if ( this.deletedFiles[i] ) { continue; }
+                   let file = this.fileList[i];
+                   formData.append('files', file);
+             }
+          }
+
+          formData.append('authorId', this.author._id);
+          formData.append('title',    this.title);
+          formData.append('body',     this.body);
+          formData.append('tags',     this.tags);
+
+          axios.post( '/posts', formData )
+            .then( res => {
+                console.log( res );
+                this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new post' });
+            }).catch( err => {
+                this.$refs.notification.showFailure({ title: 'Failure', message: err.response.data.error });
+            });
       },
       inputFilter( event ) {
         let files = event.target.files;
+        this.fileList = event.target.files;
         let validFiles = [];
         let invalidFiles = [];
         if (files) {
@@ -139,7 +162,7 @@ export default {
           this.files = validFiles;
 
           if ( invalidFiles.length ) {
-
+              // TODO SOME WARNING HERE?
           }
         }
       },
@@ -155,6 +178,8 @@ export default {
       editorConfig: {},
       preview: false,
 	  files: [],
+      fileList: null,
+      deletedFiles: {}
   }),
 }
 </script>
