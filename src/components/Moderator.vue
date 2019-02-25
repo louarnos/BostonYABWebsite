@@ -57,7 +57,7 @@ export default {
   computed: {
 	  routerProps() {
 		  if ( this.$route.name === "add_author" ) { return { pronouns: this.pronouns } }
-		  if ( this.$route.name === "create_post" ) { return { authors: this.authors } }
+		  if ( this.$route.name === "create_post" ) { return { authors: this.authors, tags: this.tags } }
 	  },
 	  pronouns() {
 		  let allPronouns = {};
@@ -65,7 +65,14 @@ export default {
 			  author.pronouns.forEach( pronoun => allPronouns[pronoun] = 1 );
 		  });
 		  return Object.keys( allPronouns );
-	  }
+	  },
+	  tags() {
+		  let allTags = {};
+		  this.posts.forEach( ( post ) => {
+			  post.tags.forEach( tag => allTags[tag] = 1 );
+		  });
+		  return Object.keys( allTags );
+	  },
   },
   methods: {
 	  updateRoute(path) {
@@ -75,6 +82,14 @@ export default {
           axios.get( '/authors')
             .then( res => {
 				this.authors = res.data.authors;
+            }).catch( err => {
+				if ( err.response.data === 'Unauthorized' && err.response.status === 401 ) {
+              		this.$router.push({ name: 'login', path: '/login', params: { unauthorized: 1 } });
+				}
+            });
+          axios.get( '/posts')
+            .then( res => {
+				this.posts = res.data.posts;
             }).catch( err => {
                 console.log( 'failure' );
             });
@@ -88,6 +103,7 @@ export default {
 	  { title: 'Posts', icon: 'list', path: '/moderator/posts'  },
     ],
 	authors: [],
+	posts: [],
 	drawer: true,
 	right: null,
 	view: 'createPost',

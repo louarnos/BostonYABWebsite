@@ -75,6 +75,7 @@ export default {
           axios.post( '/authors/add', formData )
             .then( res => {
                 this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new author.' });
+                // TODO Trigger update of data
             }).catch( err => {
                 console.log( 'failure' );
             });
@@ -101,11 +102,6 @@ export default {
       pronouns() {
           this.pronounsCopy = this.pronouns;
       },
-  },
-  computed: {
-      pronounOptions() {
-          return [];
-      }
   },
   data: () => ({
       nameRules: [

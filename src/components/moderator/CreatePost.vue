@@ -26,11 +26,11 @@
                     <div class="multiselect-container">
                         <multi-select
                             id="tags"
-                            v-model="tags"
+                            v-model="tagsSelected"
                             :taggable="true"
                             @tag="addTag"
                             multiple="multiple"
-                            :options="tagsOptions"
+                            :options="tagsCopy"
                             placeholder="Tags">
                         </multi-select>
                     </div>
@@ -103,20 +103,25 @@ import notification from '../common/hasNotifications.vue'
 
 export default {
   name: 'Moderator',
-  props: ['authors'],
+  props: ['authors', 'tags'],
   components: {
       'multi-select': Multiselect,
       'blog-post': BlogPost,
       'notification': notification,
+  },
+  watch: {
+      tags() {
+          this.tagsCopy = this.tags;
+      },
   },
   methods: {
       deleteImage(index) {
           this.files.splice( index, 1 );
           this.deletedFiles[index] = 1;
       },
-      addTag(newTag, field) {
-          this[`${field}Options`].push(newTag);
-          this[field].push(newTag);
+      addTag( newTag, field ) {
+          this[`${field}Copy`].push(newTag);
+          this[`${field}Selected`].push(newTag);
       },
       createPost() {
           // TODO VALIDATION/WARNING HERE?
@@ -172,8 +177,8 @@ export default {
       author: [],
       title: "",
       body: "",
-      tags: [],
-      tagsOptions: [],
+      tagsCopy: [],
+      tagsSelected: [],
       authorOptions: [],
       editorConfig: {},
       preview: false,

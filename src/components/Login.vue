@@ -82,6 +82,11 @@ export default {
   components: {
       notification: notification,
   },
+  mounted() {
+      if ( this.$route.params.unauthorized ) {
+          this.$refs.notification.showFailure({ title: 'Redirect', message: 'Please login. Your session has expired.' });
+      }
+  },
   methods: {
     submit() {
       this.register ? this.signUp() : this.signIn();
