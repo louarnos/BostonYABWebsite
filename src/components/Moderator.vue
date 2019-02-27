@@ -23,7 +23,7 @@
        <v-list-tile
          v-for="item in navItems"
          :key="item.title"
-         @click="updateRoute(item.path)">
+         @click="updateRoute(item)">
          <v-list-tile-action>
            <v-icon>{{ item.icon }}</v-icon>
          </v-list-tile-action>
@@ -58,6 +58,8 @@ export default {
 	  routerProps() {
 		  if ( this.$route.name === "add_author" ) { return { pronouns: this.pronouns } }
 		  if ( this.$route.name === "create_post" ) { return { authors: this.authors, tags: this.tags } }
+		  if ( this.$route.name === "all_authors" ) { return { authors: this.authors, pronouns: this.pronouns } }
+		  if ( this.$route.name === "all_posts" ) { return { posts: this.posts } }
 	  },
 	  pronouns() {
 		  let allPronouns = {};
@@ -71,12 +73,13 @@ export default {
 		  this.posts.forEach( ( post ) => {
 			  post.tags.forEach( tag => allTags[tag] = 1 );
 		  });
+
 		  return Object.keys( allTags );
 	  },
   },
   methods: {
-	  updateRoute(path) {
-		  this.$router.push(path);
+	  updateRoute(item) {
+		  this.$router.push({ name: item.name, path: item.path });
 	  },
 	  loadData(){
           axios.get( '/authors')
@@ -97,10 +100,10 @@ export default {
   },
   data: () => ({
 	navItems: [
-	  { title: 'Add Author', icon: 'how_to_reg', path: '/moderator/add_author'  },
-	  { title: 'Authors', icon: 'people', path: '/moderator/authors'  },
-      { title: 'Create Post', icon: 'create' , path: '/moderator/create_post' },
-	  { title: 'Posts', icon: 'list', path: '/moderator/posts'  },
+	  { title: 'Add Author',  icon: 'how_to_reg', name: 'add_author',  path: '/moderator/add_author'  },
+	  { title: 'Authors',     icon: 'people',     name: 'all_authors', path: '/moderator/authors'  },
+      { title: 'Create Post', icon: 'create' ,    name: 'create_post', path: '/moderator/create_post' },
+	  { title: 'Posts',       icon: 'list',       name: 'all_posts',   path: '/moderator/posts'  },
     ],
 	authors: [],
 	posts: [],
