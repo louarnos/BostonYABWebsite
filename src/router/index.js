@@ -34,10 +34,12 @@ export default new Router({
             component: createPost
         },
         {
+            name: 'all_posts',
             path: 'posts',
             component: AllPosts
         },
         {
+            name: 'all_authors',
             path: 'authors',
             component: AllAuthors
         },
