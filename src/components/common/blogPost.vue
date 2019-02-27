@@ -44,7 +44,7 @@
 			<v-carousel-item
 			  v-for="(file,i) in files"
 			  :key="i"
-			  :src="file.src"
+			  :src="forDisplay ? `http://localhost:3000/${file}` : file.src"
 			></v-carousel-item>
 		 </v-carousel>
 
@@ -64,7 +64,7 @@
 
 export default {
   name: 'BlogPost',
-  props: ['title', 'author', 'body', 'tags', 'files'],
+  props: ['title', 'author', 'body', 'tags', 'files', 'forDisplay'],
   data() {
       return {
           show: false,
