@@ -114,6 +114,9 @@ export default {
           this.tagsCopy = this.tags;
       },
   },
+  created() {
+      this.tagsCopy = this.tags;
+  },
   methods: {
       deleteImage(index) {
           this.files.splice( index, 1 );
@@ -142,7 +145,6 @@ export default {
 
           axios.post( '/posts', formData )
             .then( res => {
-                console.log( res );
                 this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new post' });
             }).catch( err => {
                 this.$refs.notification.showFailure({ title: 'Failure', message: err.response.data.error });
