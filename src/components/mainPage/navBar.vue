@@ -1,7 +1,6 @@
 <template>
     <v-toolbar class="nav-bar indigo lighten-2" fixed prominent>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Boston Youth Action Board</v-toolbar-title>
+      <img height="95%" contain class="pull-left" :src="require('@/assets/yabLogoRound.png')"/>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn v-scroll-to="'#who-we-are'" flat>Who We Are</v-btn>
