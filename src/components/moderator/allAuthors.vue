@@ -1,24 +1,35 @@
 <template>
   <div id="center-reference" class="indigo lighten-2 white--text text-xs-center login-container" >
+    <notification ref="notification"/>
     <div class="section-header">
       <h1> Authors </h1>
     </div>
     <v-container fluid>
       <v-layout row wrap>
-        <v-flex v-for="( author, i ) in authors" :key="i" xs4 class="add-margin" v-bind:class="{ 'elevation-10': isHovered(i) }" @mouseover="hoverCard(i)" @mouseout="noHoverCard(i)">
+        <v-flex v-for="( author, i ) in authors" :key="i" xs4 class="add-margin" >
           <transition-group name="flip">
-            <v-card v-if="!isClicked(i)" class="grey darken-2 author-container" :key="i" @click="triggerClick(i)" v-bind:class="{ 'flipped': isClicked(i), 'col-one': isColOne(i), 'col-two': isColTwo(i), 'col-three': isColThree(i) }">
-              <v-avatar
-                size="200px">
-                <img v-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
-                <img v-else :src="require('@/assets/yabLogo.jpg')" />
-              </v-avatar>
+            <v-card v-if="!isClicked(i)"
+              class="grey darken-2 author-container could-flip"
+              :key="i"
+              @click="triggerClick(i)"
+              @mouseover="hoverCard(i)"
+              @mouseout="noHoverCard(i)"
+              v-bind:class="{ 'elevation-10': isHovered(i) }">
+                <v-avatar
+                  size="200px">
+                  <img v-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
+                  <img v-else :src="require('@/assets/yabLogo.jpg')" />
+                </v-avatar>
               <div class="full-width name">
                 {{ author.name }}
               </div>
             </v-card>
-            <v-card v-else class="indigo lighten-2 card-flipped author-container" :key="i" v-bind:class="{ 'flipped': isClicked(i), 'col-one': isColOne(i), 'col-two': isColTwo(i), 'col-three': isColThree(i) }">
-                <alter-author :author="author" @cancelCard="triggerClick(i)" :pronouns="pronouns" :profilePicture="author.profilePicture" />
+            <v-card
+              v-else
+              class="indigo lighten-2 card-flipped author-container"
+              :key="i"
+              v-bind:class="{ 'flipped': isClicked(i), 'col-one': isColOne(i), 'col-two': isColTwo(i), 'col-three': isColThree(i) }">
+                <alter-author @notifySuccess="notifySuccess" @notifyError="notifyError" :author="author" @cancelCard="triggerClick(i)" :pronouns="pronouns" :profilePicture="author.profilePicture" />
             </v-card>
           </transition-group>
         </v-flex>
@@ -28,14 +39,24 @@
 </template>
 
 <script>
+
+import notification from '../common/hasNotifications.vue'
 import AlterAuthor from './alterAuthor.vue'
+
 export default {
   name: 'AllAuthors',
   props: [ 'authors', 'pronouns' ],
   components: {
       'alter-author': AlterAuthor,
+      'notification': notification,
   },
   methods: {
+      notifySuccess(msg) {
+          this.$refs.notification.showSuccess({ title: 'Success', message: msg });
+      },
+      notifyError(err) {
+          this.$refs.notification.showFailure({ title: 'Success', message: err });
+      },
       hoverCard(i) {
           this.cardSelected = i;
       },
@@ -96,22 +117,25 @@ export default {
       width: 100%;
   }
   .flipped.col-two {
-      transform: scale(2) translate( 0, 0 ) rotateY(360deg);
+      transform: translate( 0, -15% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
-      position: element('#center-reference')
+      position: element('#center-reference');
+      max-height: 100%;
   }
   .flipped.col-one {
-      transform: scale(2) translate( 50% ) rotateY(360deg);
+      transform: translate( 100%, -15% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
-      position: element('#center-reference')
+      position: element('#center-reference');
+      max-height: 100%;
   }
   .flipped.col-three {
-      transform: scale(2) translate( -50% ) rotateY(360deg);
+      transform: translate( -100%, -15% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
-      position: element('#center-reference')
+      position: element('#center-reference');
+      max-height: 100%;
   }
   .card-flipped {
       z-index: 10000000000000001;
