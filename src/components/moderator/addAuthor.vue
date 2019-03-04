@@ -60,6 +60,7 @@ export default {
       'notification': notification,
   },
   created() {
+      this.pronounsCopy = this.pronouns;
   },
   methods: {
       createAuthor() {
@@ -77,7 +78,7 @@ export default {
                 this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new author.' });
                 // TODO Trigger update of data
             }).catch( err => {
-                console.log( 'failure' );
+                this.$refs.notification.showFailure({ title: 'Success', message: err });
             });
       },
       addTag( newTag, field ) {
