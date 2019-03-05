@@ -1,56 +1,58 @@
 <template>
-  <form>
-    <v-avatar
-      size="200px">
-      <img v-if="fileSrc" :src="fileSrc" />
-      <img v-else-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
-      <img v-else :src="require('@/assets/yabLogo.jpg')" />
-    </v-avatar>
-    <v-text-field
-      v-model="name"
-      :rules="nameRules"
-      label="Name">
-    </v-text-field>
-    <div class="multiselect-container">
-        <multi-select
-            id="pronouns"
-            v-model="pronounsSelected"
-            :taggable="true"
-            multiple="multiple"
-            @tag="addTag"
-            :options="pronounsOptions"
-            placeholder="Pronouns">
-        </multi-select>
-    </div>
-    <div v-if="!file" class="multiselect-container">
-      <input type="file" @change="inputFilter">
-    </div>
-    <div v-if="file" class="multiselect-container">
-     <v-card class="teal lighten-3">
-       <v-list two-line dense>
-         <v-list-tile>
-           <v-list-tile-action class="icon">
-             <v-icon color="indigo lighten-2">attachment</v-icon>
-           </v-list-tile-action>
-           <v-list-tile-action>
-             <v-img :src="fileSrc"/>
-           </v-list-tile-action>
-           <v-list-tile-content class="text-center" >
-             <v-list-tile-title class="indigo-text lighten-2">Name: {{ file.name }}</v-list-tile-title>
-             <v-list-tile-title class="indigo-text lighten-2">Size: {{ file.size }}kB</v-list-tile-title>
-           </v-list-tile-content>
-           <div class="full-width">
-             <v-btn icon ripple right @click="deleteImage">
-               <v-icon color="red lighten-2">delete</v-icon>
-             </v-btn>
-         </div>
-         </v-list-tile>
-       </v-list>
-     </v-card>
-    </div>
-    <v-btn @click="cancelEdit" class="elevation-5" outline> Cancel </v-btn>
-    <v-btn @click="edit" class="elevation-5" outline >Edit Author</v-btn>
-  </form>
+  <v-card class="indigo lighten-2" v-bind:style="{ width: width + 'px' }">
+    <form>
+      <v-avatar
+        size="200px">
+        <img v-if="fileSrc" :src="fileSrc" />
+        <img v-else-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
+        <img v-else :src="require('@/assets/yabLogo.jpg')" />
+      </v-avatar>
+      <v-text-field
+        v-model="name"
+        :rules="nameRules"
+        label="Name">
+      </v-text-field>
+      <div class="multiselect-container">
+          <multi-select
+              id="pronouns"
+              v-model="pronounsSelected"
+              :taggable="true"
+              multiple="multiple"
+              @tag="addTag"
+              :options="pronounsOptions"
+              placeholder="Pronouns">
+          </multi-select>
+      </div>
+      <div v-if="!file" class="multiselect-container">
+        <input type="file" @change="inputFilter">
+      </div>
+      <div v-if="file" class="multiselect-container">
+       <v-card class="teal lighten-3">
+         <v-list two-line dense>
+           <v-list-tile>
+             <v-list-tile-action class="icon">
+               <v-icon color="indigo lighten-2">attachment</v-icon>
+             </v-list-tile-action>
+             <v-list-tile-action>
+               <v-img :src="fileSrc"/>
+             </v-list-tile-action>
+             <v-list-tile-content class="text-center" >
+               <v-list-tile-title class="indigo-text lighten-2">Name: {{ file.name }}</v-list-tile-title>
+               <v-list-tile-title class="indigo-text lighten-2">Size: {{ file.size }}kB</v-list-tile-title>
+             </v-list-tile-content>
+             <div class="full-width">
+               <v-btn icon ripple right @click="deleteImage">
+                 <v-icon color="red lighten-2">delete</v-icon>
+               </v-btn>
+           </div>
+           </v-list-tile>
+         </v-list>
+       </v-card>
+      </div>
+      <v-btn @click="cancelEdit" class="elevation-5" outline> Cancel </v-btn>
+      <v-btn @click="edit" class="elevation-5" outline >Edit Author</v-btn>
+    </form>
+  </v-card>
 </template>
 
 <script>
@@ -59,7 +61,7 @@ import axios from 'axios'
 
 export default {
   name: 'AlterAuthor',
-  props: ['author', 'pronouns'],
+  props: ['author', 'pronouns', 'width'],
   components: {
       'multi-select': Multiselect,
   },
@@ -134,8 +136,9 @@ export default {
   .bottom-margin {
       margin-bottom: 3%;
   }
-  form {
-      position: relative;
+  .v-card {
+      position: absolute;
       height: 55vh;
+      padding: 12px;
   }
 </style>
