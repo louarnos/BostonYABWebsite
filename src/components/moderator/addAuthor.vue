@@ -1,6 +1,5 @@
 <template>
   <div class="indigo lighten-2 white--text text-xs-center login-container" >
-    <notification ref="notification"/>
     <div class="section-header">
       <h1> Add Author </h1>
     </div>
@@ -50,14 +49,12 @@
 
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
-import notification from '../common/hasNotifications.vue'
 
 export default {
   name: 'AddAuthor',
   props: ['pronouns'],
   components: {
       'multi-select': Multiselect,
-      'notification': notification,
   },
   created() {
       this.pronounsCopy = this.pronouns;
@@ -75,8 +72,8 @@ export default {
 
           axios.post( '/authors/add', formData )
             .then( res => {
-                this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new author.' });
-                // TODO Trigger update of data
+                this.$emit('notifySuccess', { message: 'Successfully added new author.', loadData: true });
+                this.$router.push({ name: 'all_authors', path: '/moderator/authors' });
             }).catch( err => {
                 this.$refs.notification.showFailure({ title: 'Success', message: err });
             });

@@ -1,6 +1,5 @@
 <template>
   <div id="center-reference" class="amber darken-2 indigo-text text-xs-center login-container"   >
-    <notification ref="notification"/>
     <div class="section-header">
       <h1> Authors </h1>
     </div>
@@ -40,7 +39,6 @@
 
 <script>
 
-import notification from '../common/hasNotifications.vue'
 import AlterAuthor from './alterAuthor.vue'
 
 export default {
@@ -48,14 +46,13 @@ export default {
   props: [ 'authors', 'pronouns' ],
   components: {
       'alter-author': AlterAuthor,
-      'notification': notification,
   },
   methods: {
-      notifySuccess(msg) {
-          this.$refs.notification.showSuccess({ title: 'Success', message: msg });
+      notifySuccess(args) {
+          this.$emit('notifySuccess', args);
       },
       notifyError(err) {
-          this.$refs.notification.showFailure({ title: 'Success', message: err });
+          this.$emit('notifyError', err );
       },
       hoverCard(i) {
           this.cardSelected = i;
@@ -77,7 +74,7 @@ export default {
           return i % 3 === 0;
       },
       isColTwo( i ) {
-          return i - 1 % 3 === 0;
+          return ( i - 1 ) % 3 === 0;
       },
       isColThree( i ) {
           return ( i + 1 ) % 3 === 0;

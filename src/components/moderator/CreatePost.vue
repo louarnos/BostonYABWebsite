@@ -145,7 +145,9 @@ export default {
 
           axios.post( '/posts', formData )
             .then( res => {
-                this.$refs.notification.showSuccess({ title: 'Success', message: 'Successfully added new post' });
+                this.clearForm();
+                this.$emit('notifySuccess', { message: 'Successfully added new post.', loadData: true });
+                this.$router.push({ name: 'all_posts', path: '/moderator/posts' });
             }).catch( err => {
                 this.$refs.notification.showFailure({ title: 'Failure', message: err.response.data.error });
             });
@@ -172,6 +174,15 @@ export default {
               // TODO SOME WARNING HERE?
           }
         }
+      },
+      clearForm() {
+          this.author       = [];
+          this.title        = "";
+          this.body         = "";
+          this.files        = [];
+          this.fileList     = null;
+          this.tagsSelected = [];
+          this.deletedFiles = {};
       },
   },
   data: () => ({

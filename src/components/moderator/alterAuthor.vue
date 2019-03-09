@@ -84,7 +84,8 @@ export default {
 
           axios.put( `/authors/${this.author._id}`, formData )
             .then( res => {
-                this.$emit('notifySuccess', `Author ${res.data.author.name} successfully updated` );
+                this.$emit('notifySuccess', { message: 'Successfully updated author.', loadData: true });
+                this.cancelEdit();
             }).catch( err => {
                 this.$emit('notifyError', err );
             });
@@ -138,7 +139,7 @@ export default {
   }
   .v-card {
       position: absolute;
-      height: 55vh;
+      height: 50vh;
       padding: 12px;
   }
 </style>
