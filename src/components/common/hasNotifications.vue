@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-if="success || error" transition="" class="notification " v-bind:class="{ green: success, 'accent-3': success || error, red: error  }">
+        <div v-if="success || error" transition="" class="notification white--text" v-bind:class="{ green: success, 'accent-3': success || error, red: error  }">
             <div class="notification-element">
                 <b> {{ title }} </b>
             </div>
@@ -51,6 +51,7 @@ export default {
      width: 15%;
      border-radius: 5%;
      margin-top: 5%;
+     z-index: 1000000000001;
  }
  .success {
      background-color: green;
