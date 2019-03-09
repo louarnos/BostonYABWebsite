@@ -28,8 +28,9 @@
        <v-dialog
          v-if="moderator"
          v-model="deletePost"
+         style="float: right;"
          width="500">
-          <v-btn slot="activator" class="action-btn cancel-btn" small icon> <v-icon> cancel </v-icon> </v-btn>
+          <v-btn slot="activator" class="action-btn cancel-btn" icon> <v-icon> cancel </v-icon> </v-btn>
 		  <v-card v-if="deletePost">
             <v-card-title
               class="headline amber darken-2"
