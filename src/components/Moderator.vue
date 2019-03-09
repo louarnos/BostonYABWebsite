@@ -35,7 +35,8 @@
      </v-list>
    </v-navigation-drawer>
    <v-content fill-height>
-	 <router-view v-bind="routerProps"></router-view>
+     <notification ref="notification"/>
+	 <router-view v-bind="routerProps" @notifySuccess="handleSuccess"></router-view>
    </v-content>
 </div>
 </template>
@@ -44,11 +45,13 @@
 import Multiselect from 'vue-multiselect'
 import User from './common/hasUser.vue'
 import axios from 'axios'
+import notification from './common/hasNotifications.vue'
 
 export default {
   name: 'Moderator',
   components: {
       'multi-select': Multiselect,
+      'notification': notification,
   },
   mixins: [User],
   created() {
@@ -78,6 +81,12 @@ export default {
 	  },
   },
   methods: {
+	  handleSuccess(params) {
+          this.$refs.notification.showSuccess({ title: 'Success', message: params.message });
+		  if ( params.loadData ) {
+			  this.loadData();
+		  }
+	  },
 	  updateRoute(item) {
 		  this.$router.push({ name: item.name, path: item.path });
 	  },
