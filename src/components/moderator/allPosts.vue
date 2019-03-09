@@ -6,7 +6,7 @@
     <v-container fluid>
       <v-layout row wrap>
         <v-flex xs12 v-for="( post, i ) in posts" :key="i" class="bottom-margin">
-            <blog-post :title="post.title" :author="post.author" :body="post.body" :tags="post.tags" :files="post.files" :forDisplay="true"/>
+            <blog-post @notifySuccess="notifySuccess" @notifyFailure="notifyFailure" :id="post._id" :title="post.title" :author="post.author" :body="post.body" :tags="post.tags" :files="post.files" :forDisplay="true" :moderator="true"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -20,7 +20,15 @@ export default {
   props: ['posts'],
   components: {
       'blog-post': BlogPost,
-  }
+  },
+  methods: {
+      notifySuccess(args) {
+          this.$emit('notifySuccess', args );
+      },
+      notifyFailure(args) {
+          this.$emit('notifyFailure', args );
+      },
+  },
 }
 </script>
 <style scoped>
