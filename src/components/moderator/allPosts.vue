@@ -6,7 +6,19 @@
     <v-container fluid>
       <v-layout row wrap>
         <v-flex xs12 v-for="( post, i ) in posts" :key="i" class="bottom-margin">
-            <blog-post @notifySuccess="notifySuccess" @notifyFailure="notifyFailure" :id="post._id" :title="post.title" :author="post.author" :body="post.body" :tags="post.tags" :files="post.files" :forDisplay="true" :moderator="true"/>
+            <blog-post
+              @notifySuccess="notifySuccess"
+              @notifyFailure="notifyFailure"
+              :id="post._id"
+              :title="post.title"
+              :author="post.author"
+              :body="post.body"
+              :tags="post.tags"
+              :files="post.files"
+              :forDisplay="true"
+              :moderator="true"
+              :allTags="tags"
+              :authors="authors"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -17,7 +29,7 @@
 import BlogPost from '../common/blogPost.vue'
 export default {
   name: 'AllPosts',
-  props: ['posts'],
+  props: ['posts', 'tags', 'authors' ],
   components: {
       'blog-post': BlogPost,
   },
