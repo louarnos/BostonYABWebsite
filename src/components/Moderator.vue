@@ -13,6 +13,7 @@
            <v-list-tile-content>
              <v-list-tile-title> Welcome Back {{ yabName.split(' ').map( w => w.charAt(0).toUpperCase() + w.slice(1) ).join(' ')  }}! </v-list-tile-title>
            </v-list-tile-content>
+          <v-btn @click="logout" icon> <v-icon> logout </v-icon> </v-btn>
          </v-list-tile>
        </v-list>
      </v-toolbar>
@@ -81,6 +82,19 @@ export default {
 	  },
   },
   methods: {
+	  logout() {
+      	axios.post('/logout')
+          .then( res => {
+              localStorage.removeItem( 'yabUsersName');
+              localStorage.removeItem( 'yabUsername' );
+              localStorage.removeItem( 'yabUserEmail');
+              localStorage.removeItem( 'yabToken'    );
+              this.$refs.notification.showSuccess({ title: 'Logout Success', message: 'Logged Out' });
+			  setTimeout( () => {
+		  		 this.$router.push({ path: '/login' });
+			  }, 3000 );
+		  });
+	  },
 	  handleSuccess(params) {
           this.$refs.notification.showSuccess({ title: 'Success', message: params.message });
 		  if ( params.loadData ) {
