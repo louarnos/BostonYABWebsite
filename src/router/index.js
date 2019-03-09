@@ -4,10 +4,11 @@ import Router from 'vue-router'
 import Base from '@/components/Base'
 import Login from '@/components/Login'
 import Moderator from '@/components/Moderator'
-import createPost from '@/components/moderator/createPost.vue'
+import CreatePost from '@/components/moderator/createPost.vue'
 import AllPosts from '@/components/moderator/allPosts.vue'
 import AllAuthors from '@/components/moderator/allAuthors.vue'
 import AddAuthor from '@/components/moderator/addAuthor.vue'
+import ModeratorBase from '@/components/moderator/moderatorBase.vue'
 
 import Vuetify from 'vuetify'
 import VueScrollTo from 'vue-scrollto'
@@ -29,9 +30,14 @@ export default new Router({
       component: Moderator,
       children: [
         {
+            name: 'main_moderator',
+            path: '',
+            component: ModeratorBase,
+        },
+        {
             name: 'create_post',
             path: 'create_post',
-            component: createPost
+            component: CreatePost
         },
         {
             name: 'all_posts',
