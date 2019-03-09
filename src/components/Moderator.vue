@@ -59,10 +59,10 @@ export default {
   },
   computed: {
 	  routerProps() {
-		  if ( this.$route.name === "add_author" ) { return { pronouns: this.pronouns } }
+		  if ( this.$route.name === "add_author" )  { return { pronouns: this.pronouns } }
 		  if ( this.$route.name === "create_post" ) { return { authors: this.authors, tags: this.tags } }
 		  if ( this.$route.name === "all_authors" ) { return { authors: this.authors, pronouns: this.pronouns } }
-		  if ( this.$route.name === "all_posts" ) { return { posts: this.posts } }
+		  if ( this.$route.name === "all_posts" )   { return { posts: this.posts, tags: this.tags, authors: this.authors } }
 	  },
 	  pronouns() {
 		  let allPronouns = {};

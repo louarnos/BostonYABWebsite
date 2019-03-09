@@ -29,8 +29,8 @@
          v-if="moderator"
          v-model="deletePost"
          width="500">
-          <v-btn slot="activator" class="action-btn cancel-btn" small  icon> <v-icon> cancel </v-icon> </v-btn>
-		  <v-card>
+          <v-btn slot="activator" class="action-btn cancel-btn" small icon> <v-icon> cancel </v-icon> </v-btn>
+		  <v-card v-if="deletePost">
             <v-card-title
               class="headline amber darken-2"
               primary-title>
@@ -55,7 +55,22 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-      <v-btn class="action-btn edit-btn"   small v-if="moderator" icon> <v-icon> edit   </v-icon> </v-btn>
+       <!--
+       <v-dialog
+         v-if="moderator"
+         v-model="editPost"
+         width="100%">
+          <v-btn slot="activator" class="action-btn edit-btn" small icon> <v-icon> edit </v-icon> </v-btn>
+		  <v-card v-if="editPost">
+            <v-card-title
+              class="headline amber darken-2"
+              primary-title>
+              Edit Post
+            </v-card-title>
+            <edit-post :post="{ id: id, title: title, author: author, body: body, tags: tags, files: files }" :authors="authors" :tags="allTags"/>
+          </v-card>
+        </v-dialog>
+        -->
     </v-flex>
    </v-layout>
    <v-layout>
@@ -95,14 +110,19 @@
 <script>
 
 import axios from 'axios';
+import EditPost from '../moderator/editPost.vue'
 
 export default {
   name: 'BlogPost',
-  props: ['id', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator'],
+  props: ['id', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator', 'allTags', 'authors'],
+  components: {
+      "edit-post": EditPost,
+  },
   data() {
       return {
           show: false,
           deletePost: false,
+          editPost: false,
       }
   },
   methods: {
@@ -114,6 +134,9 @@ export default {
             }).catch( err => {
                 this.$emit('notifyFailure', err );
             });
+      },
+      handleEdit() {
+          console.log('edit');
       },
   },
   computed: {
