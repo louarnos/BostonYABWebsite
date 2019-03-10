@@ -48,12 +48,16 @@ export default {
       text-align: left;
   }
   .multiselect, .multiselect__select, .multiselect__tags {
-      max-height: 32px !important;
+      //max-height: 32px !important;
       min-height: 32px !important;
   }
   .multiselect__tags {
       padding: 4px;
       padding-left: 2px;
+      padding-bottom: 0px;
+  }
+  .multiselect__tag {
+      margin-bottom: 0px;
   }
   .v-chip.v-chip.v-chip--outline {
       color: #FFA000;

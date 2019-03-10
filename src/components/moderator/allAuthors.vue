@@ -1,6 +1,6 @@
 <template>
   <div id="center-reference" class="amber darken-2 indigo-text text-xs-center login-container"   >
-    <div class="section-header">
+    <div class="section-header black--text">
       <h1> Authors </h1>
     </div>
     <v-container fluid grid-list-xl>
@@ -119,25 +119,25 @@ export default {
       width: 100%;
   }
   .flipped.col-two {
-      transform: translate( 0, -15% ) rotateY(360deg);
+      transform: translate( 0, -25% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
       position: element('#center-reference');
-      max-height: 100%;
+     // max-height: 100%;
   }
   .flipped.col-one {
-      transform: translate( 105.5%, -15% ) rotateY(360deg);
+      transform: translate( 105.5%, -25% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
       position: element('#center-reference');
-      max-height: 100%;
+      //max-height: 100%;
   }
   .flipped.col-three {
-      transform: translate( -105.5%, -15% ) rotateY(360deg);
+      transform: translate( -105.5%, -25% ) rotateY(360deg);
       transition: 1s;
       transform-style: preserve-3d;
       position: element('#center-reference');
-      max-height: 100%;
+      //max-height: 100%;
   }
   .card-flipped {
       z-index: 10000000000000001;

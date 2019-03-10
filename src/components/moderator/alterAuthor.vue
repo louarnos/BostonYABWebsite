@@ -1,5 +1,5 @@
 <template>
-  <v-card class="indigo lighten-2" v-bind:style="{ width: width + 'px' }">
+  <v-card v-click-outside="cancelEdit"  class="indigo lighten-2" v-bind:style="{ width: width + 'px' }">
     <form>
       <v-avatar
         size="200px">
@@ -138,8 +138,8 @@ export default {
       margin-bottom: 3%;
   }
   .v-card {
-      position: absolute;
-      height: 50vh;
+      position: relative;
+      //height: 50vh;
       padding: 12px;
   }
 </style>
