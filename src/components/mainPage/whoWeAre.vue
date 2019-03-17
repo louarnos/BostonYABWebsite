@@ -5,7 +5,7 @@
           <v-container v-if="inView" fluid grid-list-xl>
             <v-layout row justify-space-around>
               <v-flex xs10>
-                <v-card>
+                <v-card class="grey lighten-4">
                   <div class="section-header">
                     <h1> Who We Are </h1>
                   </div>
@@ -37,10 +37,10 @@ export default {
 }
 @media screen and (max-width: 480px) {
   .section-header {
-      font-size: 1.8em;
+      font-size: 1.25em;
   }
   .main-content {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 }
 </style>

@@ -2,54 +2,50 @@
       <div class="section-container indigo lighten-2">
         <div id="written-word" ref="positionTracker">
           <transition name="fade">
-            <v-container v-if="inView" fluid grid-list-xl>
-              <v-layout row justify-space-around>
-                <v-flex xs10>
+            <v-container v-if="inView" fluid>
+             <v-layout row wrap>
+                <v-flex xs12>
                  <v-card v-if="inView" class="indigo lighten-2">
                    <div class="section-header">
                      <h1> Written Word </h1>
                    </div>
-                    <v-card class="grey lighten-2">
-                     <v-layout>
-					  <v-flex xs3>
-					   <img
-						:src="require('@/assets/Lauren.jpg')"
-                        class="author-img"
-                        height="200px"
-						contain ></img>
-					  </v-flex>
-					  <v-flex xs9>
-					  <v-card-title primary-title class="title">
-					   <div width="100%">
-					     <div class="headline">My Experience as a YAB facilitator</div>
-					     <span class="grey--text">Lauren Leonardis</span>
-					     <span class="grey--text pull- right">10/01/2018</span>
-					   </div>
-					   <div style="width:100%;">
-						 <v-btn class="toggle" icon @click="show[1] = !show[1]">
-						   <v-icon >{{ show[1] ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-						 </v-btn>
-					   </div>
-					  </v-card-title>
-                      </v-flex>
-                     </v-layout>
-					 <v-slide-y-transition>
-					   <v-card-text v-show="show[1]">
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus dapibus leo, vel molestie orci elementum non. Sed rhoncus, nisi a facilisis scelerisque, nibh diam pharetra enim, sit amet mollis mauris arcu eu risus. Maecenas leo metus, bibendum sed tempor et, viverra vitae nunc. Pellentesque mollis suscipit massa, eget eleifend mauris euismod quis. Curabitur et porta nulla, dapibus tempus nulla. Proin mollis facilisis pharetra. Etiam tempor blandit hendrerit. In lacinia enim nec magna ultricies suscipit. Phasellus sollicitudin dui sed ipsum lobortis, non vulputate mauris bibendum. Vivamus sodales et nisl vel suscipit. Nam pharetra augue et dui rhoncus, a mattis ante cursus. Cras purus urna, efficitur ac malesuada in, venenatis vel nisl. Aliquam ornare varius fringilla.
-
-Vivamus a quam vel ligula interdum suscipit ac sed eros. Fusce condimentum, erat ut consectetur viverra, nisl dolor malesuada diam, eget egestas nunc nibh vitae neque. Nunc ultricies elit sit amet vehicula scelerisque. Donec finibus fermentum metus, in tincidunt nibh tincidunt a. Quisque tempor vestibulum urna, nec ultricies risus dictum vitae. Duis a finibus arcu, ac sodales sapien. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec metus sapien, lobortis quis condimentum at, finibus tincidunt tortor. Ut eleifend, turpis sed imperdiet fringilla, augue libero hendrerit orci, eu laoreet lectus sem nec quam. Vestibulum semper accumsan velit, nec blandit erat. Ut quis tellus nec purus fringilla sollicitudin.
-
-Etiam ornare, velit ac eleifend finibus, felis felis bibendum enim, placerat tristique nulla turpis at ex. Etiam efficitur nisi justo, et fringilla ipsum tristique ac. In id neque consectetur quam mollis cursus. Fusce egestas at libero lobortis varius. Ut iaculis, nisi blandit mattis pretium, magna elit efficitur ex, id pulvinar mi arcu vitae tortor. Proin imperdiet metus eu ligula pulvinar, in porttitor nibh pellentesque. Vestibulum sit amet faucibus nunc. Praesent lacus erat, euismod eget lorem id, semper consectetur tortor. In porttitor arcu eget libero suscipit pellentesque. Integer bibendum massa metus, ac fermentum arcu porta feugiat. Integer sodales, massa non mattis vulputate, sapien mauris rhoncus ex, a bibendum nunc mi eu est.
-
-Aliquam nec imperdiet nulla, sed dignissim augue. Sed sapien ante, accumsan id lectus id, mollis mattis ipsum. Curabitur tempor facilisis ex id lobortis. Sed fermentum justo eget justo consequat consequat. Duis imperdiet mollis pretium. In hac habitasse platea dictumst. Sed vulputate malesuada mauris non aliquam. Cras non libero lacinia quam dignissim vehicula. Sed ac quam non libero tincidunt ultrices non non orci. Suspendisse potenti. Duis congue elementum risus sed mattis. Suspendisse in faucibus leo. In ac lorem maximus, malesuada ligula ullamcorper, interdum erat. Donec ullamcorper tristique ante, eget gravida sapien malesuada eu. Etiam fringilla justo eget leo lacinia, in scelerisque turpis euismod.
-
-Nullam ac magna venenatis, consequat arcu in, molestie erat. Praesent sed nisl pharetra, maximus turpis vitae, auctor tortor. Aenean aliquet leo non purus faucibus mollis. Aliquam non neque sit amet ipsum tempor posuere. Donec eu luctus augue. Integer feugiat ornare metus, eget hendrerit odio vulputate eget. Nam nec eleifend arcu. Mauris ac vehicula sem, eget lobortis metus. In ullamcorper efficitur neque. Cras augue velit, faucibus eleifend imperdiet a, dignissim in enim. Pellentesque lectus nibh, molestie at dolor eget, fermentum auctor justo. 
-					   </v-card-text>
-					 </v-slide-y-transition>
-                    </v-card>
+                    <v-layout row wrap align-center justify-center class="options">
+                       <div style="text-align: left; padding-left: 3px; min-height: 46px;">
+                         <span class="amber-text"> Viewing </span>
+                       </div>
+                       <div class="select-container">
+                         <v-select
+                           class="num-selector"
+                           height="25"
+                           v-model="numShowing"
+                           :items="numOptions" >
+                         </v-select>
+                       </div>
+                       <div style="text-align: left; padding-left: 3px; min-height: 46px;">
+                         <span class="amber-text"> of {{ postsViewing.length }} posts. </span>
+                       </div>
+                       <div style="width: 100%">
+                          <v-chip v-for="(tag, i) in tagFilters" :key="i"  outline>
+                            {{ tag }}
+                             <v-btn icon @click="tagFilters.splice(i, 1)">
+                               <v-icon >delete</v-icon>
+                             </v-btn>
+                          </v-chip>
+                       </div>
+                    </v-layout>
                  </v-card>
+                </v-flex>
+                <v-flex xs12 v-for="( post, i ) in postsViewing" :key="i" class="bottom-margin">
+                    <blog-post
+                      @filterForTag="addTagToFilter"
+                      :id="post._id"
+                      :title="post.title"
+                      :author="post.author"
+                      :body="post.body"
+                      :tags="post.tags"
+                      :date="post.date"
+                      :files="post.files"
+                      :forDisplay="true"/>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -58,15 +54,57 @@ Nullam ac magna venenatis, consequat arcu in, molestie erat. Praesent sed nisl p
       </div>
 </template>
 <script>
+import BlogPost from '../common/blogPost.vue'
 import LocationTracker from '../common/hasTracking.vue'
+import axios from 'axios'
+import Multiselect from 'vue-multiselect';
+
 export default {
   name: 'WrittenWord',
   mixins: [LocationTracker],
+  components: {
+      'blog-post': BlogPost,
+      'multi-select': Multiselect,
+  },
+  methods: {
+      addTagToFilter( tag ) {
+          this.tagFilters.push( tag );
+      },
+  },
+  created() {
+    axios.get( '/posts')
+      .then( res => {
+	  	this.posts = res.data.posts;
+      }).catch( err => {
+          console.log( 'failure' );
+      });
+  },
+  computed: {
+      postsViewing() {
+          return this.posts.filter( p => {
+              if ( !p.tags && this.tagFilters.length ) {
+                  return false;
+              }
+
+              let match = true;
+              this.tagFilters.forEach( t => {
+                  if ( ! p.tags.includes( t ) ) {
+                      match = false;
+                  }
+              });
+              return match;
+          }).slice( 0, this.numShowing );
+      }
+  },
   data() {
       return {
 		show: {
             1: false,
-        }
+        },
+        posts: [],
+        numShowing: 3,
+        numOptions: [ 1, 3, 5, 10 ],
+        tagFilters: [],
       }
   },
 }
@@ -75,16 +113,34 @@ export default {
 #written-word {
   padding-top: 5%;
   min-height: 700px;
+  text-align: center;
 }
-.author-img{
-    display: block;
-    margin: auto;
+.section-header {
+    text-align: left;
+    font-size: 1.7em;
 }
-.title {
-	flex: 1;
+.options {
+    padding-bottom: 2%;
 }
-.toggle {
-    margin-top: 14%;
-    float: right;
+.select-container {
+    padding-left: 5px;
+    padding-right: 5px;
+    max-width: 25%;
+}
+.bottom-margin {
+    margin-bottom: 1%;
+}
+.v-input {
+    padding-top: 0px;
+    margin-top: 0px;
+}
+.amber-text {
+    color: #FFA000;
+}
+@media screen and (max-width: 480px) {
+    .v-btn {
+        margin: 0;
+        padding: 0;
+    }
 }
 </style>

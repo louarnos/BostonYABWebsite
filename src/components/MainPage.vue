@@ -2,10 +2,10 @@
     <div>
         <landingEl/>
         <whoWeAreEl ref='whoWeAre'/>
-        <v-parallax :src="require('@/assets/long_table.jpg')" :height="'455'">
+        <v-parallax :src="require('@/assets/standing.jpg')" :height="'600'">
         </v-parallax>
         <truthsAndValuesEl ref='truthsAndValues'/>
-        <v-parallax :src="require('@/assets/useful.png')" :height="'510'" >
+        <v-parallax :src="require('@/assets/stairwell.png')" :height="'510'" >
         </v-parallax>
         <writtenWordEl ref='writtenWord'/>
   </div>

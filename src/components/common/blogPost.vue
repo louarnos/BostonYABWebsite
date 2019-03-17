@@ -1,26 +1,21 @@
 <template>
   <v-card class="grey lighten-2 full-width">
    <v-layout>
-    <v-flex class="post-container" xs3>
+    <v-flex class="post-container" :xs3="!isMobile" :xs4="isMobile">
 	 <v-avatar
 	   slot="activator"
-	   size="100px">
+	   :size="isMobile ? '75' : '100'">
        <div class="full-width">
            <img v-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
            <img v-else :src="require('@/assets/yabLogo.jpg')" />
        </div>
     </v-avatar>
-       <br>
-       <br>
-      <span class="teal--text accent-2 author-name">{{ author.name }}</span>
-       <br>
-      <span class="grey--text">{{ author.pronouns.join('/') }}</span>
     </v-flex>
-    <v-flex xs8>
+    <v-flex :xs8="!isMobile" :xs7="isMobile">
       <v-card-title primary-title class="title">
         <div width="100%">
           <div class="post-title" > {{ title }}</div>
-          <span class="grey--text pull-right">{{ date }}</span> 
+          <span class="grey--text pull-right date">{{ dateFormatted }}</span> 
         </div>
       </v-card-title>
     </v-flex>
@@ -75,10 +70,15 @@
     </v-flex>
    </v-layout>
    <v-layout>
-     <v-flex xs3>
+    <v-flex :xs3="!isMobile" :xs4="isMobile">
+      <span class="teal--text accent-2 author-name">{{ author.name }}</span>
+       <br>
+      <span class="grey--text pronouns">{{ author.pronouns.join('/') }}</span>
      </v-flex>
-     <v-flex xs9>
-       <v-chip v-for="tag in tags" class="pull-left"  outline>{{ tag}}</v-chip>
+    <v-flex :xs8="!isMobile" :xs7="isMobile">
+       <v-chip v-for="tag in tags" class="pull-left" @click="$emit('filterForTag', tag )" outline>{{ tag }}</v-chip>
+     </v-flex>
+     <v-flex xs1>
        <v-btn class="action-btn" icon @click="show = !show">
          <v-icon >{{ show ? 'remove_circle' : 'add_circle'  }}</v-icon>
        </v-btn>
@@ -112,13 +112,15 @@
 
 import axios from 'axios';
 import EditPost from '../moderator/editPost.vue'
+import Mobile from './mobile.vue'
 
 export default {
   name: 'BlogPost',
-  props: ['id', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator', 'allTags', 'authors'],
+  props: ['id', 'date', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator', 'allTags', 'authors'],
   components: {
       "edit-post": EditPost,
   },
+  mixins: [ Mobile ],
   data() {
       return {
           show: false,
@@ -141,8 +143,8 @@ export default {
       },
   },
   computed: {
-      date() {
-          return this.moment().format('l');
+      dateFormatted() {
+          return this.moment(this.date).format('l');
       },
   },
 }
@@ -163,7 +165,6 @@ export default {
 }
 .post-container {
     padding: 12px;
-    height: 120px;
 }
 .body-container {
     text-align: left;
@@ -179,5 +180,33 @@ export default {
 }
 .edit-btn {
     color:  #1E88E5;
+}
+
+@media screen and (max-width: 480px) {
+  .post-title {
+      font-size: 1em;
+  }
+  .author-name {
+      font-size: 1em;
+  }
+  .pronouns {
+      font-size: .75em;
+  }
+  .date {
+      font-size: .66em;
+  }
+  .v-chip {
+      font-size: 10px;
+      height: 20px !important;
+      margin: 1px;
+  }
+  .v-chip > span.v-chip__content {
+      height: 28px;
+  }
+  .v-card__title {
+      padding-top: 10px;
+      padding-left: 0;
+      padding-right: 0;
+  }
 }
 </style>

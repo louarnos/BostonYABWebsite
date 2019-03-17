@@ -1,28 +1,22 @@
 <template>
-      <div class="section-container grey lighten-2">
+      <div class="section-container amber darken-2">
         <div id="truths-and-values" ref="positionTracker">
           <transition name="fade">
             <v-container v-if="inView" fluid grid-list-xl>
               <v-layout row justify-space-around>
                 <v-flex xs10>
-                  <v-card>
+                  <v-card class="grey lighten-4">
                     <div class="section-header">
-                      <h1> Truths And Values </h1>
+                       <h1> Truths & Values </h1>
                     </div>
                     <v-card-text class="list content-text">
                       <v-container grid-list-md>
-                        <v-layout row wrap>
-
+                        <v-layout :column="isMobile" :row="!isMobile" wrap>
                           <v-flex xs6>
-                            <v-card class="red lighten-2 list-container" height="100%">
-                                <v-layout>
-                                  <v-flex xs2>
-                                  </v-flex>
-                                  <v-flex xs10 >
-                                    <h2 class="list-title"> Truths </h2>
-                                  </v-flex>
-                                </v-layout>
-                                <v-divider dark></v-divider>
+                            <div v-if="isMobile">
+                                <h2> Truths </h2>
+                            </div>
+                            <div class="list-container" height="100%">
                                 <div v-for="( el, index) in truthsContent">
                                   <v-layout row wrap>
                                     <v-flex xs2 class="content-number">
@@ -32,25 +26,20 @@
                                       {{el.title}}
                                   <v-divider dark></v-divider>
                                       <v-layout>
-                                        <v-flex xs12 class="list content-body">
-                                          {{el.content}}
+                                        <v-flex v-html="el.content" xs12 class="list content-body">
                                         </v-flex>
                                       </v-layout>
                                     </v-flex>
                                   </v-layout>
                                 </div>
-                            </v-card>
+                            </div>
                           </v-flex>
 
                           <v-flex xs6>
-                            <v-card class="red lighten-2 list-container" height="100%">
-                                <v-layout>
-                                  <v-flex xs2>
-                                  </v-flex>
-                                  <v-flex xs10 >
-                                    <h2 class="list-title"> Values </h2>
-                                  </v-flex>
-                                </v-layout>
+                            <div v-if="isMobile">
+                                <h2> Values </h2>
+                            </div>
+                            <div class="list-container" height="100%">
                                 <v-divider dark></v-divider>
                                 <div v-for="( el, index) in valuesContent">
                                   <v-layout row wrap>
@@ -61,17 +50,14 @@
                                       {{el.title}}
                                   <v-divider dark></v-divider>
                                       <v-layout>
-                                        <v-flex xs12 class="list content-body">
-                                          {{el.content}}
+                                        <v-flex v-html="el.content" xs12 class="list content-body">
                                         </v-flex>
                                       </v-layout>
                                     </v-flex>
                                   </v-layout>
                                 </div>
-                            </v-card>
+                            </div>
                           </v-flex>
-
-
 
                         </v-layout>
                       </v-container>
@@ -86,9 +72,10 @@
 </template>
 <script>
 import LocationTracker from '../common/hasTracking.vue'
+import Mobile from '../common/mobile.vue'
 export default {
   name: 'TruthsAndValues',
-  mixins: [LocationTracker],
+  mixins: [LocationTracker, Mobile],
   data() {
       return {
         valuesContent: [
@@ -98,7 +85,7 @@ export default {
           },
           {
             title: 'Respectful Language',
-            content: "The members of the YAB have gone to great lengths to advocate for themselves in terms of how they would like to be referred to. Language is a vital part of showing respect and validating someone's lived experience and an important part of professionalism. Please keep in mind that we may use some words that are not appropriate for you to use. Here are some Do’s and Dont’s for language use in the YAB: <br>▪ Do say 'Substance use, Problematic substance use.' <br>Don't say 'Substance Abuse, Substance Misuse, User, Junkie, Addict' <br>▪ Do refer to us as 'People, Folks, Youth and Young Adults, Students' Don't call us 'kids' or 'children' <br>▪ Do ask 'What are your pronouns?' Don’t assume or guess. <br>▪ Do say 'People experiencing homelessness' Don’t say 'Homeless People, homeless youth'"
+            content: "The members of the YAB have gone to great lengths to advocate for themselves in terms of how they would like to be referred to. Language is a vital part of showing respect and validating someone's lived experience and an important part of professionalism. Please keep in mind that we may use some words that are not appropriate for you to use. Here are some Do’s and Dont’s for language use in the YAB: <br>▪ Do say 'Substance use, Problematic substance use'. Don't say 'Substance Abuse, Substance Misuse, User, Junkie, Addict' <br>▪ Do refer to us as 'People, Folks, Youth and Young Adults, Students'. Don't call us 'kids' or 'children' <br>▪ Do ask 'What are your pronouns?'. Don’t assume or guess. <br>▪ Do say 'People experiencing homelessness'. Don’t say 'Homeless People, homeless youth'."
           },
           {
             title: 'Authentic and Transparent Process',
@@ -177,5 +164,23 @@ h2.list-title {
   font-size: 1.5em;
   font-family: Monsterrat, sans-serif;
   font-weight: 100;
+}
+.section-header {
+    text-align: center;
+}
+@media screen and (max-width: 480px) {
+    .container {
+        margin: 0px;
+        padding: 0px;
+    }
+    .content-number {
+      font-size: 2em;
+    }
+    .list.content-subheader {
+      font-size: 1.25em;
+    }
+    .content-text {
+      font-size: 1.25em;
+    }
 }
 </style>

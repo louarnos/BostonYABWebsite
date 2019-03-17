@@ -1,12 +1,13 @@
 <template>
+  <v-app>
     <div class="hide-overflow" style="position:relative">
         <navBar/>
         <landingEl/>
         <whoWeAreEl ref='whoWeAre'/>
-        <v-parallax :src="require('@/assets/long_table.jpg')" :height="'455'">
+        <v-parallax contain :src="require(`@/assets/standing-${picSize}.jpg`)" :height="isMobile ? '220' : '900'">
         </v-parallax>
         <truthsAndValuesEl ref='truthsAndValues'/>
-        <v-parallax :src="require('@/assets/useful.png')" :height="'510'" >
+        <v-parallax :src="require(`@/assets/stairwell-${picSize}.jpg`)" :height="isMobile ? '220' : '700'">
         </v-parallax>
         <writtenWordEl ref='writtenWord'/>
 
@@ -18,29 +19,16 @@
         width="100%">
         <v-card-text class="white--text">
           <span class="icon-container">
-            <v-icon
-              @click="openLink('https://www.facebook.com/BostonYAB/')"
-              :size="150">
-                fa fa-facebook-square
-            </v-icon>
-            <v-icon
-              @click="openLink('https://www.youtube.com/channel/UCMVlYzUB4RP9j_75f2fyW0Q')"
-              
-              :size="150">
-                fa fa-youtube-square
-            </v-icon>
-            <v-icon
-              @click="openLink('mailto:bostonyab@gmail.com')"
-              
-              :size="150">
-                fa fa-envelope-o
-            </v-icon>
+            <v-icon @click="openLink('https://www.facebook.com/BostonYAB/')" :size="isMobile ? 75 : 150"> fa fa-facebook-square </v-icon>
+            <v-icon @click="openLink('https://www.youtube.com/channel/UCMVlYzUB4RP9j_75f2fyW0Q')" :size="isMobile ? 75 : 150"> fa fa-youtube-square </v-icon>
+            <v-icon @click="openLink('mailto:bostonyab@gmail.com')" :size="isMobile ? 75 : 150"> fa fa-envelope-o </v-icon>
           </span>
         </v-card-text>
       </v-card>
     </v-footer>
 
   </div>
+ </v-app>
 </template>
 <script>
 import NavBar from "./mainPage/Navbar.vue"
@@ -48,6 +36,7 @@ import LandingJumbo from "./mainPage/landingJumbotron.vue"
 import WhoWeAre from "./mainPage/whoWeAre.vue"
 import TruthsAndValues from "./mainPage/truthsAndValues.vue"
 import WrittenWord from "./mainPage/writtenWord.vue"
+import Mobile from "./common/mobile.vue"
 export default {
   name: 'Base',
   components: {
@@ -57,6 +46,7 @@ export default {
     'truthsAndValuesEl': TruthsAndValues,
     'writtenWordEl': WrittenWord
   },
+  mixins: [ Mobile ],
   methods: {
       handleScroll() {
           for (let key in this.$refs ) {
