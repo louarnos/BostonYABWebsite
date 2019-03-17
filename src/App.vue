@@ -66,4 +66,7 @@ export default {
       color: #FFA000;
       font-size: 16px;
   }
+  .v-text-field > .v-input__control > .v-input__slot::after {
+      border: none;
+  }
 </style>
