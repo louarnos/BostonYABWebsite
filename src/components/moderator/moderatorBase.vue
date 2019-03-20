@@ -1,5 +1,5 @@
 <template>
-  <div class="indigo lighten-2 white--text text-xs-center login-container" >
+  <div class="red white--text text-xs-center login-container" >
       <img :src="require('@/assets/yabLogoRound.png')"/>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
       padding: 0;
   }
   .section-header > h1 {
-      font-size: 3em;
+      font-size: 5vh;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }
@@ -30,8 +30,6 @@ export default {
       margin-bottom: 3%;
   }
   img {
-      border: 20px solid red;
-      border-radius: 50%;
       max-height: 100vh;
   }
 </style>

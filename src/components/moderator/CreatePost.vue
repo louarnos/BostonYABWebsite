@@ -221,7 +221,7 @@ export default {
       background-color: white;
   }
   .section-header > h1 {
-      font-size: 3em;
+      font-size: 8vh;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }

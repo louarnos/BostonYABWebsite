@@ -53,6 +53,7 @@
             <v-btn
                 :small="true"
                 outline
+                class="elevation-5"
                 @click="register=!register" > 
                     <span v-if="register">
                         Back to Sign In
@@ -61,10 +62,17 @@
                         Sign Up
                     </span>
             </v-btn>
+            <br>
             <v-btn
                 outline
+                class="elevation-5"
                 @click="submit" > 
-                    Submit
+                  <span v-if="register">
+                      Sign Up
+                  </span>
+                  <span v-else>
+                      Sign In
+                  </span>
             </v-btn>
           </v-form>
         </v-flex>
@@ -191,7 +199,7 @@ export default {
       height: 100%;
   }
   .section-header > h1 {
-      font-size: 3em;
+      font-size: 8vh;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }

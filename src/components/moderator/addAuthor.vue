@@ -5,7 +5,7 @@
     </div>
     <v-container>
     <v-layout row wrap>
-        <v-flex lg6 offset-lg3>
+        <v-flex xs6 offset-xs3>
           <v-form ref="form" lazy-validation>
             <v-text-field
               v-model="name"
@@ -25,19 +25,28 @@
             </div>
             <input type="file" @change="inputFilter">
             <v-card class="teal lighten-3" v-if="file">
-              <v-list two-line dense>
-                <v-list-tile>
-                  <v-list-tile-action>
-                    <v-icon color="indigo lighten-2">attachment</v-icon>
-                  </v-list-tile-action>
-                  <v-list-tile-content >
-                    <v-list-tile-title class="indigo-text lighten-2">{{ file.name }}</v-list-tile-title>
-                    <v-list-tile-sub-title class="indigo-text lighten-2">{{ file.error ? 'Error: ' + file.error : 'Success: ' +  file.success }} </v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </v-list>
+                <v-list two-line dense>
+                  <v-list-tile>
+                    <v-list-tile-action class="icon">
+                      <v-icon color="indigo lighten-2">attachment</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-action>
+                      <v-img :src="file.src"/>
+                    </v-list-tile-action>
+                    <v-list-tile-content class="text-center" >
+                      <v-list-tile-title class="indigo-text lighten-2">Name: {{ file.name }}</v-list-tile-title>
+                      <v-list-tile-title class="indigo-text lighten-2">Size: {{ file.size }}kB</v-list-tile-title>
+                    </v-list-tile-content>
+                    <div class="full-width">
+                      <v-btn icon ripple right @click="deleteImage()">
+                        <v-icon color="red lighten-2">delete</v-icon>
+                      </v-btn>
+                  </div>
+                  </v-list-tile>
+                </v-list>
             </v-card>
-            <v-btn @click="createAuthor" outline >Create Author</v-btn>
+            <br>
+            <v-btn @click="createAuthor" outline class="elevation-5" >Create Author</v-btn>
           </v-form>
         </v-flex>
     </v-layout>
@@ -60,6 +69,9 @@ export default {
       this.pronounsCopy = this.pronouns;
   },
   methods: {
+      deleteImage() {
+          this.file = null;
+      },
       createAuthor() {
           // TODO validation
           let formData = new FormData()
@@ -92,6 +104,8 @@ export default {
           if (/\.(php5?|html?|jsx?)$/i.test(file.name)) {
             return prevent()
           }
+          let src = URL.createObjectURL(file);
+          file.src = src;
           this.file = file
         }
       },
@@ -123,7 +137,7 @@ export default {
       height: 100%;
   }
   .section-header > h1 {
-      font-size: 3em;
+      font-size: 8vh;
       font-weight: 300;
       font-family: Monsterrat, sans-serif;
   }
