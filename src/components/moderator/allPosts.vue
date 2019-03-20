@@ -15,6 +15,7 @@
               :body="post.body"
               :tags="post.tags"
               :files="post.files"
+              :video="post.video"
               :forDisplay="true"
               :moderator="true"
               :allTags="tags"

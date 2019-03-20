@@ -75,10 +75,10 @@
        <br>
       <span class="grey--text pronouns">{{ author.pronouns.join('/') }}</span>
      </v-flex>
-    <v-flex :xs8="!isMobile" :xs7="isMobile">
+    <v-flex :xs8="!isMobile" :xs6="isMobile">
        <v-chip v-for="tag in tags" class="pull-left" @click="$emit('filterForTag', tag )" outline>{{ tag }}</v-chip>
      </v-flex>
-     <v-flex xs1>
+    <v-flex :xs1="!isMobile" :xs2="isMobile">
        <v-btn class="action-btn" icon @click="show = !show">
          <v-icon >{{ show ? 'remove_circle' : 'add_circle'  }}</v-icon>
        </v-btn>
@@ -99,6 +99,12 @@
        </v-flex>
      </v-layout>
      <v-layout>
+       <v-flex v-if="show" xs12 class="video-container">
+        <iframe width="800" height="600" :src="`https://youtube.com/embed/${video}`">
+        </iframe> 
+       </v-flex>
+     </v-layout>
+     <v-layout>
        <v-flex xs12>
          <v-card-text v-show="show" v-html="body" class="body-container"> </v-card-text>
       </v-flex>
@@ -116,7 +122,7 @@ import Mobile from './mobile.vue'
 
 export default {
   name: 'BlogPost',
-  props: ['id', 'date', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator', 'allTags', 'authors'],
+  props: ['id', 'date', 'title', 'author', 'body', 'tags', 'files', 'forDisplay', 'moderator', 'allTags', 'authors', 'video'],
   components: {
       "edit-post": EditPost,
   },
@@ -208,5 +214,21 @@ export default {
       padding-left: 0;
       padding-right: 0;
   }
+}
+
+.video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container iframe,
+.video-container object,
+.video-container embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
 }
 </style>

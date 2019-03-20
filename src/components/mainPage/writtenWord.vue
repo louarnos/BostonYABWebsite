@@ -11,7 +11,7 @@
                    </div>
                     <v-layout row wrap align-center justify-center class="options">
                        <div style="text-align: left; padding-left: 3px; min-height: 46px;">
-                         <span class="amber-text"> Viewing </span>
+                         <span class="amber-text"> Show </span>
                        </div>
                        <div class="select-container">
                          <v-select
@@ -22,7 +22,7 @@
                          </v-select>
                        </div>
                        <div style="text-align: left; padding-left: 3px; min-height: 46px;">
-                         <span class="amber-text"> of {{ postsViewing.length }} posts. </span>
+                         <span class="amber-text"> of {{ posts.length }} possible posts. </span>
                        </div>
                        <div style="width: 100%">
                           <v-chip v-for="(tag, i) in tagFilters" :key="i"  outline>
@@ -45,6 +45,7 @@
                       :tags="post.tags"
                       :date="post.date"
                       :files="post.files"
+                      :video="post.video"
                       :forDisplay="true"/>
                 </v-flex>
               </v-layout>
@@ -81,7 +82,7 @@ export default {
   },
   computed: {
       postsViewing() {
-          return this.posts.filter( p => {
+          return this.posts.reverse().filter( p => {
               if ( !p.tags && this.tagFilters.length ) {
                   return false;
               }
@@ -94,6 +95,14 @@ export default {
               });
               return match;
           }).slice( 0, this.numShowing );
+      },
+      numOptions() {
+        let options = [ 1, 3, 5, 10, 25 ];
+        if ( this.posts.length > 25 ) {
+            options.push( this.posts.length );
+        }
+
+        return options;
       }
   },
   data() {
@@ -103,7 +112,6 @@ export default {
         },
         posts: [],
         numShowing: 3,
-        numOptions: [ 1, 3, 5, 10 ],
         tagFilters: [],
       }
   },
@@ -117,7 +125,6 @@ export default {
 }
 .section-header {
     text-align: left;
-    font-size: 1.7em;
 }
 .options {
     padding-bottom: 2%;
@@ -141,6 +148,9 @@ export default {
     .v-btn {
         margin: 0;
         padding: 0;
+    }
+    .section-heaader {
+        font-size: 1.7em;
     }
 }
 </style>

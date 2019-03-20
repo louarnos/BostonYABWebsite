@@ -8,8 +8,12 @@ import axios from 'axios'
 import Vuetify from 'vuetify'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import moment from 'moment'
+import VueScrollTo from 'vue-scrollto'
 
 Vue.use( CKEditor )
+Vue.use( Vuetify );
+Vue.use(VueScrollTo)
+
 Vue.prototype.moment = moment
 Vue.config.productionTip = false
 Vue.component('icon', Icon)
@@ -32,9 +36,6 @@ Vue.directive('click-outside', {
 
 axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
-
-import "vuetify/dist/vuetify.min.js"
-import "vuetify/dist/vuetify.min.css"
 
 /* eslint-disable no-new */
 new Vue({

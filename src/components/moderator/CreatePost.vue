@@ -6,7 +6,7 @@
         </div>
         <v-container>
             <v-layout v-if="preview" row wrap>
-                <blog-post :author="author" :title="title" :body="body" :tags="tags" :files="files"/>
+                <blog-post :author="author" :title="title" :body="body" :tags="tags" :files="files" :video="video"/>
             </v-layout>
             <v-layout v-else row wrap>
                 <v-flex xs6 offset-sm3>
@@ -34,6 +34,10 @@
                             placeholder="Tags">
                         </multi-select>
                     </div>
+                    <v-text-field
+                        v-model="video"
+                        label="Video">
+                    </v-text-field>
                     <div class="multiselect-container">
                         <input type="file" @change="inputFilter" multiple="multiple"/>
                     </div>
@@ -142,6 +146,7 @@ export default {
           formData.append('title',    this.title);
           formData.append('body',     this.body);
           formData.append('tags',     this.tags);
+          formData.append('video',    this.video);
 
           axios.post( '/posts', formData )
             .then( res => {
@@ -183,6 +188,7 @@ export default {
           this.fileList     = null;
           this.tagsSelected = [];
           this.deletedFiles = {};
+          this.video        = null;
       },
   },
   data: () => ({
@@ -197,7 +203,8 @@ export default {
       preview: false,
 	  files: [],
       fileList: null,
-      deletedFiles: {}
+      deletedFiles: {},
+      video: null,
   }),
 }
 </script>

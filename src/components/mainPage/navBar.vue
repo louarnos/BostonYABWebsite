@@ -17,13 +17,13 @@
         temporary>
         <v-list>
           <v-list-tile>
-            <v-btn @click="drawer = !drawer" v-scroll-to="'#who-we-are'" flat>Who We Are</v-btn>
+            <v-btn @click="drawer = !drawer" v-scroll-to="{ el: '#who-we-are', offset: -50 }" flat>Who We Are</v-btn>
           </v-list-tile>
           <v-list-tile>
-            <v-btn @click="drawer = !drawer" v-scroll-to="'#truths-and-values'" flat>Truths and Values</v-btn>
+            <v-btn @click="drawer = !drawer" v-scroll-to="{ el: '#truths-and-values', offset: -50 }" flat>Truths and Values</v-btn>
           </v-list-tile>
           <v-list-tile>
-            <v-btn @click="drawer = !drawer" v-scroll-to="'#written-word'" flat>Written Word</v-btn>
+            <v-btn @click="drawer = !drawer" v-scroll-to="{ el: '#written-word', offset: -50 }" flat>Written Word</v-btn>
           </v-list-tile>
           <v-list-tile>
             <v-btn @click="drawer = !drawer" flat>Contact</v-btn>
