@@ -34,7 +34,7 @@ Vue.directive('click-outside', {
   },
 });
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://3.91.149.158:3000';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 /* eslint-disable no-new */

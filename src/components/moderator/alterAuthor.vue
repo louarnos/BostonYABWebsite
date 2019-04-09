@@ -4,7 +4,7 @@
       <v-avatar
         size="200px">
         <img v-if="fileSrc" :src="fileSrc" />
-        <img v-else-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
+        <img v-else-if="author.profilePicture" :src="`http://3.91.149.158:3000/${author.profilePicture}`" />
         <img v-else :src="require('@/assets/yabLogo.jpg')" />
       </v-avatar>
       <v-text-field

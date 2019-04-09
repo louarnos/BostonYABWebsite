@@ -16,7 +16,7 @@
               v-bind:class="{ 'elevation-10': isHovered(i), 'blur': blur(i) }">
                 <v-avatar
                   size="200px">
-                  <img v-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
+                  <img v-if="author.profilePicture" :src="`http://3.91.149.158:3000/${author.profilePicture}`" />
                   <img v-else :src="require('@/assets/yabLogo.jpg')" />
                 </v-avatar>
               <div class="full-width name indigo-text">

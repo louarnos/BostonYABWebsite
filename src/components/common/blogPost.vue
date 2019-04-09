@@ -6,7 +6,7 @@
 	   slot="activator"
 	   :size="isMobile ? '75' : '100'">
        <div class="full-width">
-           <img v-if="author.profilePicture" :src="`http://localhost:3000/${author.profilePicture}`" />
+           <img v-if="author.profilePicture" :src="`http://3.91.149.158:3000/${author.profilePicture}`" />
            <img v-else :src="require('@/assets/yabLogo.jpg')" />
        </div>
     </v-avatar>
