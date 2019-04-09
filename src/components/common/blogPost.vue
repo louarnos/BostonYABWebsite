@@ -93,14 +93,17 @@
 			<v-carousel-item
 			  v-for="(file,i) in files"
 			  :key="i"
-			  :src="forDisplay ? `http://localhost:3000/${file}` : file.src"
+			  :src="forDisplay ? `http://3.91.149.158:3000/${file}` : file.src"
 			></v-carousel-item>
 		 </v-carousel>
        </v-flex>
      </v-layout>
-     <v-layout>
-       <v-flex v-if="show" xs12 class="video-container">
-        <iframe width="800" height="600" :src="`https://youtube.com/embed/${video}`">
+     <v-layout v-if="video">
+        <div v-if="video !== 'null'">
+        {{ video }}
+        </div>
+       <v-flex v-if="show && video !== null" xs12 class="video-container" style="margin-top: 2%;">
+        <iframe  width="800" height="600" :src="`https://youtube.com/embed/${video}`">
         </iframe> 
        </v-flex>
      </v-layout>

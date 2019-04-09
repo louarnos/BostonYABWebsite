@@ -45,7 +45,7 @@
                       :tags="post.tags"
                       :date="post.date"
                       :files="post.files"
-                      :video="post.video"
+                      :video="post.video !== 'null' ? post.video : false"
                       :forDisplay="true"/>
                 </v-flex>
               </v-layout>
