@@ -14,6 +14,9 @@ export default {
       height: 100%;
       margin: 0;
   }
+  #app {
+      position: relative !important;
+  }
   body {
       font-family: Monsterrat, sans-serif;
       height: 100%;
