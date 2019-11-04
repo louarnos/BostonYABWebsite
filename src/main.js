@@ -9,6 +9,7 @@ import Vuetify from 'vuetify'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import moment from 'moment'
 import VueScrollTo from 'vue-scrollto'
+import "../node_modules/vuetify/dist/vuetify.min.css"
 
 Vue.use( CKEditor )
 Vue.use( Vuetify );
